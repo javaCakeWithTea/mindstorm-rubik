@@ -3,8 +3,8 @@ import numpy as np
 class Cube:
     ## Defines the Cube class and saves the state of this cube in memory.
     def __init__(self,
-                 f=np.full((3,3),"white",dtype="U6"),
-                 u=np.full((3,3),"red",dtype="U6"),
+                 f=np.full((3,3),"red",dtype="U6"),
+                 u=np.full((3,3),"white",dtype="U6"),
                  l=np.full((3,3),"blue",dtype="U6"),
                  r=np.full((3,3),"orange",dtype="U6"),
                  b=np.full((3,3),"black",dtype="U6"),
@@ -125,13 +125,55 @@ class Cube:
         right = np.delete(rotationMatrix[:,2],[0,-1])
         front = rotationMatrix[1:-1,1:-1]
         return front,up,down,right,left
-
-
-
-
-
-
+    
+    def __eq__(self,other):
+        ## Equality needs to handle "any" placeholders where we don't care for a match.
+        for otherValue,selfValue in np.nditer([other.f,self.f],order='F'):
+            if otherValue == "any" or selfValue == "any":
+                continue
+            elif otherValue == selfValue:
+                continue
+            else:
+                return False
+            
+        for otherValue,selfValue in np.nditer([other.u,self.u],order='F'):
+            if otherValue == "any" or selfValue == "any":
+                continue
+            elif otherValue == selfValue:
+                continue
+            else:
+                return False
+            
+        for otherValue,selfValue in np.nditer([other.d,self.d],order='F'):
+            if otherValue == "any" or selfValue == "any":
+                continue
+            elif otherValue == selfValue:
+                continue
+            else:
+                return False
+            
+        for otherValue,selfValue in np.nditer([other.l,self.l],order='F'):
+            if otherValue == "any" or selfValue == "any":
+                continue
+            elif otherValue == selfValue:
+                continue
+            else:
+                return False
+            
+        for otherValue,selfValue in np.nditer([other.r,self.r],order='F'):
+            if otherValue == "any" or selfValue == "any":
+                continue
+            elif otherValue == selfValue:
+                continue
+            else:
+                return False
+            
+        for otherValue,selfValue in np.nditer([other.b,self.b],order='F'):
+            if otherValue == "any" or selfValue == "any":
+                continue
+            elif otherValue == selfValue:
+                continue
+            else:
+                return False
         
-
-
-
+        return True

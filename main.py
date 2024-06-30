@@ -1,17 +1,8 @@
 import cube
+import numpy as np
+import nerd
 
-myCube = cube.Cube()
+cube1 = cube.Cube()
+cube1.d[0] = np.array(["messing","a","bout"])
 
-# myCube.rotateSide("f")
-myCube.rotateSide("b")
-myCube.rotateSide("f")
-myCube.rotateSide("u")
-print(myCube.b)
-print(myCube.r.dtype)
-print(myCube.u.dtype)
-print(myCube.d.dtype)
-print(myCube.l.dtype)
-print(myCube.b.dtype)
-
-
-
+print(nerd.Nerd.whiteCrossComplete(cube1))
