@@ -2,7 +2,7 @@ import cube
 
 myCube = cube.Cube()
 
-myCube.rotateF()
+myCube.rotateSide("b")
 
 
 
