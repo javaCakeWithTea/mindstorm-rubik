@@ -3,6 +3,8 @@ import numpy as np
 import nerd
 
 cube1 = cube.Cube()
-cube1.d[0] = np.array(["messing","a","bout"])
 
-print(nerd.Nerd.whiteCrossComplete(cube1))
+cube1.rotateSide("l")
+
+print(cube1.f)
+print(cube1.l)

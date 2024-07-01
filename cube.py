@@ -120,9 +120,9 @@ class Cube:
     
     def setCube(self,rotationMatrix):
         up = np.delete(rotationMatrix[0],[0,-1])
-        down = np.delete(rotationMatrix[2],[0,-1])
+        down = np.delete(rotationMatrix[4],[0,-1])
         left = np.delete(rotationMatrix[:,0],[0,-1])
-        right = np.delete(rotationMatrix[:,2],[0,-1])
+        right = np.delete(rotationMatrix[:,4],[0,-1])
         front = rotationMatrix[1:-1,1:-1]
         return front,up,down,right,left
     
