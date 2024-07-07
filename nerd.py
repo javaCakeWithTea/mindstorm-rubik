@@ -20,17 +20,17 @@ class Nerd:
         fFace = np.array([["any","red","any"],
             ["any","red","any"],
             ["any","any","any"]])
-        rFace = np.array([["any","orange","any"],
-            ["any","orange","any"],
-            ["any","any","any"]])
-        lFace = np.array([["any","blue","any"],
+        rFace = np.array([["any","blue","any"],
             ["any","blue","any"],
             ["any","any","any"]])
-        bFace = np.array([["any","black","any"],
-            ["any","black","any"],
+        lFace = np.array([["any","green","any"],
+            ["any","green","any"],
+            ["any","any","any"]])
+        bFace = np.array([["any","orange","any"],
+            ["any","orange","any"],
             ["any","any","any"]])
         dFace = np.array([["any","any","any"],
-            ["any","any","any"],
+            ["any","yellow","any"],
             ["any","any","any"]])
         
         completeWhiteCross = cube.Cube(fFace,uFace,lFace,rFace,bFace,dFace)
@@ -40,5 +40,22 @@ class Nerd:
         else:
             return False
 
-    #def solve(cube):
+    @staticmethod
+    def solve(cube):
         ## 1. White cross.
+        ## Locate whites that aren't corners.
+        ## U is the white side.
+        if Nerd.whiteCrossComplete(cube):
+            return True
+        else:
+            topOfCross = (cube.u[0,1]=="white" and cube.b[0,1]=="orange")
+            bottomOfCross = (cube.u[2,1]=="white" and cube.f[0,1]=="red")
+            leftOfCross = (cube.u[1,0]=="white" and cube.l[0,1]=="green")
+            rightOfCross = (cube.u[1,2]=="white" and cube.r[0,1]=="blue")
+            print(topOfCross , bottomOfCross , leftOfCross , rightOfCross)
+            return False
+
+
+
+
+        

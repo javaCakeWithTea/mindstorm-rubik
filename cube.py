@@ -5,10 +5,10 @@ class Cube:
     def __init__(self,
                  f=np.full((3,3),"red",dtype="U6"),
                  u=np.full((3,3),"white",dtype="U6"),
-                 l=np.full((3,3),"blue",dtype="U6"),
-                 r=np.full((3,3),"orange",dtype="U6"),
-                 b=np.full((3,3),"black",dtype="U6"),
-                 d=np.full((3,3),"green",dtype="U6")):
+                 l=np.full((3,3),"green",dtype="U6"),
+                 r=np.full((3,3),"blue",dtype="U6"),
+                 b=np.full((3,3),"orange",dtype="U6"),
+                 d=np.full((3,3),"yellow",dtype="U6")):
         self.f = f
         self.u = u
         self.l = l
