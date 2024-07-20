@@ -15,6 +15,14 @@ class Cube:
         self.r = r
         self.b = b
         self.d = d
+        ## Variables to set temporary labeling of a side.
+        ## By defualt this should be the side itself.
+        self.labelF = "f"
+        self.labelU = "u"
+        self.labelL = "l"
+        self.labelR = "r"
+        self.labelB = "b"
+        self.labelD = "d"
 
     def rotate(self,front,up,down,right,left):
         left = np.atleast_2d(left).T
@@ -125,6 +133,69 @@ class Cube:
         right = np.delete(rotationMatrix[:,4],[0,-1])
         front = rotationMatrix[1:-1,1:-1]
         return front,up,down,right,left
+    
+    def rotateBottom2Rows(self):
+        ## Rotates the bottom two rows of the cube. If U is the top.
+        self.d = np.rot90(self.d,-1)
+        self.r[1:,:] = self.f[1:,:]
+        self.f[1:,:] = self.l[1:,:]
+        self.b[1:,:] = self.r[1:,:]
+        self.l[1:,:] = self.b[1:,:]
+        print("Roated bottom 2 rows once.")
+
+    def centreOnFace(self,face):
+        ## Changes this side to temporarily be the front.
+        self.resetLabels()
+        if face == "f":
+            return
+        elif face == "u":
+            self.labelF = "u"
+            self.labelD = "f"
+            self.labelB = "d"
+            self.labelU = "b"
+        elif face == "d":
+            self.labelF = "d"
+            self.labelD = "b"
+            self.labelB = "u"
+            self.labelU = "f"
+        elif face == "b":
+            self.labelF = "b"
+            self.labelD = "u"
+            self.labelB = "f"
+            self.labelU = "d"
+        elif face == "r":
+            self.labelF = "r"
+            self.labelL = "f"
+            self.labelR = "b"
+            self.labelB = "l"
+        elif face == "l":
+            self.labelF = "l"
+            self.labelL = "b"
+            self.labelR = "f"
+            self.labelB = "r"
+
+    def resetLabels(self):
+        self.labelF = "f"
+        self.labelU = "u"
+        self.labelL = "l"
+        self.labelR = "r"
+        self.labelB = "b"
+        self.labelD = "d"
+
+    def rotateLabeledSide(self,labeledSide):
+        ## Checks what is the real side for this label and rotates this.
+        if labeledSide=="f":
+            self.rotateSide(self.labelF)
+        if labeledSide=="u":
+            self.rotateSide(self.labelU)
+        if labeledSide=="l":
+            self.rotateSide(self.labelL)
+        if labeledSide=="r":
+            self.rotateSide(self.labelR)
+        if labeledSide=="b":
+            self.rotateSide(self.labelB)
+        if labeledSide=="d":
+            self.rotateSide(self.labelD)
     
     def __eq__(self,other):
         ## Equality needs to handle "any" placeholders where we don't care for a match.

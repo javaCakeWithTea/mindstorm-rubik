@@ -5,6 +5,8 @@ import numpy as np
 
 class Nerd:
 
+    rotationsFromStart = 0
+
     def isFinished(aCube):
         ## Checks cube against the default cube.
         ## If they match then the cube is complete.
@@ -48,12 +50,97 @@ class Nerd:
         if Nerd.whiteCrossComplete(cube):
             return True
         else:
-            topOfCross = (cube.u[0,1]=="white" and cube.b[0,1]=="orange")
-            bottomOfCross = (cube.u[2,1]=="white" and cube.f[0,1]=="red")
-            leftOfCross = (cube.u[1,0]=="white" and cube.l[0,1]=="green")
-            rightOfCross = (cube.u[1,2]=="white" and cube.r[0,1]=="blue")
-            print(topOfCross , bottomOfCross , leftOfCross , rightOfCross)
+            ## Check which bits of the cross are complete.
+            topOfCross = (cube.u[0,1]=="white")
+            bottomOfCross = (cube.u[2,1]=="white")
+            leftOfCross = (cube.u[1,0]=="white")
+            rightOfCross = (cube.u[1,2]=="white")
+            Nerd.solveBadCross(cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross)
             return False
+
+    @staticmethod 
+    def solveBadCross(cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross):
+
+        if not topOfCross:
+            cube.centreOnFace("b")
+            topOfCross == True
+        elif not bottomOfCross:
+            cube.centreOnFace("f")
+            bottomOfCross == True
+        elif not leftOfCross:
+            cube.centreOnFace("l")
+            leftOfCross == True
+        elif not rightOfCross:
+            cube.centreOnFace("r")
+            rightOfCross == True
+        else:
+            return cube
+
+        frontFace = cube.__dict__[cube.labelF]
+
+        if "white" == frontFace[0,1]:
+            cube = Nerd.flipEdge(cube)
+        elif "white" == frontFace[1,0]:
+            cube = Nerd.fromMiddleLayerLeft(cube)
+        elif "white" == frontFace[1,2]:
+            cube = Nerd.fromMiddleLayerRight(cube)
+        elif "white" == frontFace[2,1]:
+            cube = Nerd.fromBottomLayer(cube)
+        else:
+            ## Do a double bottom turn?
+            print("Well something 'aint right..?")
+            
+        return Nerd.solveBadCross(cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross)
+
+    @staticmethod
+    def flipEdge(cube):
+        ## F U' R U
+        cube = cube.rotateLabeledSide("f")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("r")
+        cube = cube.rotateLabeledSide("u")
+        return cube
+    
+    @staticmethod
+    def fromBottomLayer(cube):
+        ## F' U' R U
+        cube = cube.rotateLabeledSide("f")
+        cube = cube.rotateLabeledSide("f")
+        cube = cube.rotateLabeledSide("f")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("r")
+        cube = cube.rotateLabeledSide("u")
+        return cube
+
+    @staticmethod
+    def fromMiddleLayerRight(cube):
+        ## U' R U
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("r")
+        cube = cube.rotateLabeledSide("u")
+        return cube
+
+    @staticmethod
+    def fromMiddleLayerLeft(cube):
+        ## U L' U'
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("l")
+        cube = cube.rotateLabeledSide("l")
+        cube = cube.rotateLabeledSide("l")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("u")
+        cube = cube.rotateLabeledSide("u")
+        return cube
+
+
+
+
 
 
 
