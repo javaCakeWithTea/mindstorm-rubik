@@ -173,6 +173,7 @@ class Cube:
             self.labelL = "b"
             self.labelR = "f"
             self.labelB = "r"
+        return
 
     def resetLabels(self):
         self.labelF = "f"
@@ -181,6 +182,7 @@ class Cube:
         self.labelR = "r"
         self.labelB = "b"
         self.labelD = "d"
+        return
 
     def rotateLabeledSide(self,labeledSide):
         ## Checks what is the real side for this label and rotates this.
@@ -196,6 +198,7 @@ class Cube:
             self.rotateSide(self.labelB)
         if labeledSide=="d":
             self.rotateSide(self.labelD)
+        return
     
     def __eq__(self,other):
         ## Equality needs to handle "any" placeholders where we don't care for a match.

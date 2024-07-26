@@ -43,54 +43,63 @@ class Nerd:
             return False
 
     @staticmethod
-    def solve(cube):
+    def solve(aCube):
         ## 1. White cross.
         ## Locate whites that aren't corners.
         ## U is the white side.
-        if Nerd.whiteCrossComplete(cube):
-            return True
+        if Nerd.whiteCrossComplete(aCube):
+            print("Bad white cross is complete.")
+            return aCube
         else:
             ## Check which bits of the cross are complete.
-            topOfCross = (cube.u[0,1]=="white")
-            bottomOfCross = (cube.u[2,1]=="white")
-            leftOfCross = (cube.u[1,0]=="white")
-            rightOfCross = (cube.u[1,2]=="white")
-            Nerd.solveBadCross(cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross)
-            return False
+            topOfCross = (aCube.u[0,1]=="white")
+            bottomOfCross = (aCube.u[2,1]=="white")
+            leftOfCross = (aCube.u[1,0]=="white")
+            rightOfCross = (aCube.u[1,2]=="white")
+            aCube = Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,0)
+            return aCube
 
     @staticmethod 
-    def solveBadCross(cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross):
+    def solveBadCross(aCube:cube.Cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,numberOfBottomTwoLayerRotations):
 
         if not topOfCross:
-            cube.centreOnFace("b")
+            aCube.centreOnFace("b")
             topOfCross == True
         elif not bottomOfCross:
-            cube.centreOnFace("f")
+            aCube.centreOnFace("f")
             bottomOfCross == True
         elif not leftOfCross:
-            cube.centreOnFace("l")
+            aCube.centreOnFace("l")
             leftOfCross == True
         elif not rightOfCross:
-            cube.centreOnFace("r")
+            aCube.centreOnFace("r")
             rightOfCross == True
         else:
-            return cube
+            ## Move the bottom two layers to original position.
+            ## Means that faces remain the same colour.
+            for i in (4-numberOfBottomTwoLayerRotations):
+                aCube = aCube.rotateBottom2Rows()
+            return aCube
 
-        frontFace = cube.__dict__[cube.labelF]
+        frontFace = aCube.__dict__[aCube.labelF]
 
         if "white" == frontFace[0,1]:
-            cube = Nerd.flipEdge(cube)
+            aCube = Nerd.flipEdge(aCube)
         elif "white" == frontFace[1,0]:
-            cube = Nerd.fromMiddleLayerLeft(cube)
+            aCube = Nerd.fromMiddleLayerLeft(aCube)
         elif "white" == frontFace[1,2]:
-            cube = Nerd.fromMiddleLayerRight(cube)
+            aCube = Nerd.fromMiddleLayerRight(aCube)
         elif "white" == frontFace[2,1]:
-            cube = Nerd.fromBottomLayer(cube)
+            aCube = Nerd.fromBottomLayer(aCube)
         else:
-            ## Do a double bottom turn?
+            ## Do a double bottom turn. If the white can't be found on this side we need to move it here.
             print("Well something 'aint right..?")
+            aCube = aCube.rotateBottom2Rows()
+            numberOfBottomTwoLayerRotations+=1
+
+
             
-        return Nerd.solveBadCross(cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross)
+        return Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,numberOfBottomTwoLayerRotations)
 
     @staticmethod
     def flipEdge(cube):
