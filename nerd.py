@@ -78,7 +78,7 @@ class Nerd:
             ## Move the bottom two layers to original position.
             ## Means that faces remain the same colour.
             for i in (4-numberOfBottomTwoLayerRotations):
-                aCube = aCube.rotateBottom2Rows()
+                aCube.rotateBottom2Rows()
             return aCube
 
         frontFace = aCube.__dict__[aCube.labelF]
@@ -94,7 +94,7 @@ class Nerd:
         else:
             ## Do a double bottom turn. If the white can't be found on this side we need to move it here.
             print("Well something 'aint right..?")
-            aCube = aCube.rotateBottom2Rows()
+            aCube.rotateBottom2Rows()
             numberOfBottomTwoLayerRotations+=1
 
 
@@ -104,47 +104,47 @@ class Nerd:
     @staticmethod
     def flipEdge(cube):
         ## F U' R U
-        cube = cube.rotateLabeledSide("f")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("r")
-        cube = cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("u")
         return cube
     
     @staticmethod
     def fromBottomLayer(cube):
         ## F' U' R U
-        cube = cube.rotateLabeledSide("f")
-        cube = cube.rotateLabeledSide("f")
-        cube = cube.rotateLabeledSide("f")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("r")
-        cube = cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("u")
         return cube
 
     @staticmethod
     def fromMiddleLayerRight(cube):
         ## U' R U
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("r")
-        cube = cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("u")
         return cube
 
     @staticmethod
     def fromMiddleLayerLeft(cube):
         ## U L' U'
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("l")
-        cube = cube.rotateLabeledSide("l")
-        cube = cube.rotateLabeledSide("l")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("u")
-        cube = cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("l")
+        cube.rotateLabeledSide("l")
+        cube.rotateLabeledSide("l")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
+        cube.rotateLabeledSide("u")
         return cube
 
 
