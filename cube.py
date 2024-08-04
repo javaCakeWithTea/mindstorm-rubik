@@ -137,10 +137,14 @@ class Cube:
     def rotateBottom2Rows(self):
         ## Rotates the bottom two rows of the cube. If U is the top.
         self.d = np.rot90(self.d,-1)
-        self.r[1:,:] = self.f[1:,:]
-        self.f[1:,:] = self.l[1:,:]
-        self.b[1:,:] = self.r[1:,:]
-        self.l[1:,:] = self.b[1:,:]
+        bottomR = np.copy(self.f[1:,:])
+        bottomF = np.copy(self.l[1:,:])
+        bottomB = np.copy(self.r[1:,:])
+        bottomL = np.copy(self.b[1:,:])
+        self.r[1:,:] = bottomR
+        self.f[1:,:] = bottomF
+        self.b[1:,:] = bottomB
+        self.l[1:,:] = bottomL
         print("Roated bottom 2 rows once.")
 
     def centreOnFace(self,face):

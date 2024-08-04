@@ -82,6 +82,7 @@ class Nerd:
             return aCube
 
         frontFace = aCube.__dict__[aCube.labelF]
+        print(frontFace)
 
         if "white" == frontFace[0,1]:
             aCube = Nerd.flipEdge(aCube)

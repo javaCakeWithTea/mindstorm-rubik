@@ -44,7 +44,13 @@ def test_edge_flip_algorithm():
     solvedCube = nerd.Nerd.flipEdge(aCube)
     assert solvedCube.u[2,1] == "white"
 
-def test_solve():
+def test_solve_completed_cube():
     aCube = cube.Cube()
     aCube = nerd.Nerd.solve(aCube)
     assert aCube == cube.Cube()
+
+def test_solve_one_rotation():
+    aCube = cube.Cube()
+    aCube.rotateSide("f")
+    print(aCube.u)
+    aCube = nerd.Nerd.solve(aCube)

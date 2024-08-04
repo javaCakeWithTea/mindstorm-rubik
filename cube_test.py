@@ -36,3 +36,27 @@ def test_centre_on_face_u_and_rotate_twice():
     assert np.array_equal(theCube.f,np.array([["orange","orange","orange"],
                                             ["red","red","red"],
                                             ["red","red","red"]],dtype="U6"))
+    
+def test_rotateBottom2Rows():
+    theCube = cube.Cube()
+    theCube.rotateBottom2Rows()
+    print(theCube.f)
+    print(theCube.r)
+    print(theCube.b)
+    print(theCube.l)
+    assert np.array_equal(theCube.f,np.array([["red","red","red"],
+                                  ["green","green","green"],
+                                  ["green","green","green"]],dtype="U6"))
+    
+    assert np.array_equal(theCube.r,np.array([["blue","blue","blue"],
+                                  ["red","red","red"],
+                                  ["red","red","red"]],dtype="U6"))
+    
+    assert np.array_equal(theCube.b,np.array([["orange","orange","orange"],
+                                  ["blue","blue","blue"],
+                                  ["blue","blue","blue"]],dtype="U6"))
+    
+    assert np.array_equal(theCube.l,np.array([["green","green","green"],
+                                  ["orange","orange","orange"],
+                                  ["orange","orange","orange"]],dtype="U6"))
+    
