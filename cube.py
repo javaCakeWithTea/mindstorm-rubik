@@ -116,6 +116,7 @@ class Cube:
             self.d[2] = returnedValues[2]
             self.l[:,0] = returnedValues[3]
             self.r[:,2] = returnedValues[4]
+        return
 
     def setRotationMatrix(self,front,up,down,right,left):
         left = np.atleast_2d(left).T
@@ -136,7 +137,7 @@ class Cube:
     
     def rotateBottom2Rows(self):
         ## Rotates the bottom two rows of the cube. If U is the top.
-        self.d = np.rot90(self.d,-1)
+        self.d = np.rot90(np.copy(self.d),-1)
         bottomR = np.copy(self.f[1:,:])
         bottomF = np.copy(self.l[1:,:])
         bottomB = np.copy(self.r[1:,:])
@@ -146,10 +147,10 @@ class Cube:
         self.b[1:,:] = bottomB
         self.l[1:,:] = bottomL
         print("Roated bottom 2 rows once.")
+        return
 
     def centreOnFace(self,face):
         ## Changes this side to temporarily be the front.
-        self.resetLabels()
         if face == "f":
             return
         elif face == "u":
