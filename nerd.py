@@ -41,13 +41,43 @@ class Nerd:
             return True
         else:
             return False
+        
+
+    @staticmethod
+    def whiteBadCrossComplete(aCube):
+        ## Checks if the white cross stage is complete.
+        uFace = np.array([["any","white","any"],
+            ["white","white","white"],
+            ["any","white","any"]])
+        fFace = np.array([["any","any","any"],
+            ["any","red","any"],
+            ["any","any","any"]])
+        rFace = np.array([["any","any","any"],
+            ["any","blue","any"],
+            ["any","any","any"]])
+        lFace = np.array([["any","any","any"],
+            ["any","green","any"],
+            ["any","any","any"]])
+        bFace = np.array([["any","any","any"],
+            ["any","orange","any"],
+            ["any","any","any"]])
+        dFace = np.array([["any","any","any"],
+            ["any","yellow","any"],
+            ["any","any","any"]])
+        
+        completeWhiteCross = cube.Cube(fFace,uFace,lFace,rFace,bFace,dFace)
+        
+        if aCube == completeWhiteCross:
+            return True
+        else:
+            return False
 
     @staticmethod
     def solve(aCube):
         ## 1. White cross.
         ## Locate whites that aren't corners.
         ## U is the white side.
-        if Nerd.whiteCrossComplete(aCube):
+        if Nerd.whiteBadCrossComplete(aCube):
             print("Bad white cross is complete.")
             return aCube
         else:
@@ -77,7 +107,7 @@ class Nerd:
         else:
             ## Move the bottom two layers to original position.
             ## Means that faces remain the same colour.
-            for i in (4-numberOfBottomTwoLayerRotations):
+            for i in (3-numberOfBottomTwoLayerRotations%4):
                 aCube.rotateBottom2Rows()
             return aCube
 
@@ -92,13 +122,17 @@ class Nerd:
             aCube = Nerd.fromMiddleLayerRight(aCube)
         elif "white" == frontFace[2,1]:
             aCube = Nerd.fromBottomLayer(aCube)
+        elif "white" in [aCube.d[0,1], aCube.d[1,0], aCube.d[1,2], aCube.d[2,1]]:
+            aCube = Nerd.fromDFace(aCube)
         else:
             ## Do a double bottom turn. If the white can't be found on this side we need to move it here.
             print("Well something 'aint right..?")
             aCube.rotateBottom2Rows()
+            print("State of top:")
+            print(aCube.u)
             numberOfBottomTwoLayerRotations+=1
-
-
+        
+        aCube.resetLabels()
             
         return Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,numberOfBottomTwoLayerRotations)
 
@@ -146,6 +180,26 @@ class Nerd:
         cube.rotateLabeledSide("u")
         cube.rotateLabeledSide("u")
         cube.rotateLabeledSide("u")
+        return cube
+    
+    @staticmethod
+    def fromDFace(cube):
+        ## Moves the white tile over to the correct orientation.
+        ## Then flips it to the top.
+        ## Side d is always d for any of the white cross re-labels.
+        faceD = cube.d
+
+        if faceD[2,1]=="white":
+            cube.rotateLabeledSide("d")
+            cube.rotateLabeledSide("d")
+        elif faceD[1,0]=="white":
+            cube.rotateLabeledSide("d")
+        elif faceD[1,2]=="white":
+            cube.rotateLabeledSide("d")
+            cube.rotateLabeledSide("d")
+            cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
         return cube
 
 
