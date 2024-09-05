@@ -94,46 +94,47 @@ class Nerd:
 
         if not topOfCross:
             aCube.centreOnFace("b")
-            topOfCross == True
         elif not bottomOfCross:
             aCube.centreOnFace("f")
-            bottomOfCross == True
         elif not leftOfCross:
             aCube.centreOnFace("l")
-            leftOfCross == True
         elif not rightOfCross:
             aCube.centreOnFace("r")
-            rightOfCross == True
         else:
             ## Move the bottom two layers to original position.
             ## Means that faces remain the same colour.
-            for i in (3-numberOfBottomTwoLayerRotations%4):
+            for i in range(4-numberOfBottomTwoLayerRotations%4):
                 aCube.rotateBottom2Rows()
             return aCube
 
         frontFace = aCube.__dict__[aCube.labelF]
-        print(frontFace)
 
         if "white" == frontFace[0,1]:
-            aCube = Nerd.flipEdge(aCube)
+            print("Flipping edge.")
+            Nerd.flipEdge(aCube)
         elif "white" == frontFace[1,0]:
-            aCube = Nerd.fromMiddleLayerLeft(aCube)
+            print("From middle-layer left.")
+            Nerd.fromMiddleLayerLeft(aCube)
         elif "white" == frontFace[1,2]:
-            aCube = Nerd.fromMiddleLayerRight(aCube)
+            print("From middle-layer right.")
+            Nerd.fromMiddleLayerRight(aCube)
         elif "white" == frontFace[2,1]:
-            aCube = Nerd.fromBottomLayer(aCube)
+            print("From bottom layer.")
+            Nerd.fromBottomLayer(aCube)
         elif "white" in [aCube.d[0,1], aCube.d[1,0], aCube.d[1,2], aCube.d[2,1]]:
-            aCube = Nerd.fromDFace(aCube)
+            print("From down under.")
+            Nerd.fromDFace(aCube)
         else:
             ## Do a double bottom turn. If the white can't be found on this side we need to move it here.
-            print("Well something 'aint right..?")
             aCube.rotateBottom2Rows()
-            print("State of top:")
-            print(aCube.u)
             numberOfBottomTwoLayerRotations+=1
         
         aCube.resetLabels()
-            
+        topOfCross = (aCube.u[0,1]=="white")
+        bottomOfCross = (aCube.u[2,1]=="white")
+        leftOfCross = (aCube.u[1,0]=="white")
+        rightOfCross = (aCube.u[1,2]=="white")
+        print(topOfCross,bottomOfCross,leftOfCross,rightOfCross,numberOfBottomTwoLayerRotations)
         return Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,numberOfBottomTwoLayerRotations)
 
     @staticmethod

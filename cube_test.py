@@ -72,10 +72,6 @@ class TestCubeMethods(unittest.TestCase):
     def test_rotateBottom2Rows(self):
         theCube5 = getDefaultCube()
         theCube5.rotateBottom2Rows()
-        print(theCube5.f)
-        print(theCube5.r)
-        print(theCube5.b)
-        print(theCube5.l)
         self.assertTrue(np.array_equal(theCube5.f,np.array([["red","red","red"],
                                     ["green","green","green"],
                                     ["green","green","green"]],dtype="U6")))
@@ -91,6 +87,45 @@ class TestCubeMethods(unittest.TestCase):
         self.assertTrue(np.array_equal(theCube5.l,np.array([["green","green","green"],
                                     ["orange","orange","orange"],
                                     ["orange","orange","orange"]],dtype="U6")))
+        
+    def test_rotateBottom2Rows_2(self):
+        theCube5 = getDefaultCube()
+        theCube5.d = np.array([["orange","green","orange"],
+                                    ["blue","blue","blue"],
+                                    ["blue","blue","red"]],dtype="U6")
+        theCube5.rotateBottom2Rows()
+        theCube5.rotateBottom2Rows()
+        theCube5.rotateBottom2Rows()
+        theCube5.rotateBottom2Rows()
+        self.assertTrue(np.array_equal(theCube5.d,np.array([["orange","green","orange"],
+                                    ["blue","blue","blue"],
+                                    ["blue","blue","red"]],dtype="U6")))
+        
+    def test_rotateBottom2Rows_3_neg(self):
+        theCube5 = getDefaultCube()
+        theCube5.d = np.array([["orange","green","orange"],
+                                    ["blue","blue","blue"],
+                                    ["blue","blue","red"]],dtype="U6")
+        theCube5.rotateBottom2Rows()
+        theCube5.rotateBottom2Rows()
+        theCube5.rotateBottom2Rows()
+        self.assertFalse(np.array_equal(theCube5.d,np.array([["orange","green","orange"],
+                                    ["blue","blue","blue"],
+                                    ["blue","blue","red"]],dtype="U6")))
+        
+    def test_rotateBottom2Rows_4(self):
+        theCube5 = getDefaultCube()
+        theCube5.d = np.array([["orange","green","orange"],
+                                    ["blue","blue","blue"],
+                                    ["blue","blue","red"]],dtype="U6")
+        theCube5.rotateBottom2Rows()
+        theCube5.rotateBottom2Rows()
+        theCube5.rotateBottom2Rows()
+        self.assertFalse(np.array_equal(theCube5.d,np.array([["orange","green","orange"],
+                                    ["blue","blue","blue"],
+                                    ["blue","blue","red"]],dtype="U6")))
+
+
         
         
         

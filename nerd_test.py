@@ -43,16 +43,27 @@ def test_white_cross_complete_neg_2():
                         ["yellow","white","orange"]])
     assert not nerd.Nerd.whiteCrossComplete(aCube)
 
-def test_bad_white_cross_complete():
+def test_bad_white_cross_complete_neg():
     ## Set a random face with white cross and other colours to test any conditions.
     aCube = getDefaultCube()
-    aCube.u = np.array([["green","green","red"],
+    aCube.u = np.array([["green","red","red"],
                         ["white","white","white"],
                         ["yellow","white","orange"]])
     aCube.f = np.array([["green","green","red"],
                         ["white","red","white"],
                         ["yellow","white","orange"]])
     assert not nerd.Nerd.whiteBadCrossComplete(aCube)
+
+def test_bad_white_cross_complete():
+    ## Set a random face with white cross and other colours to test any conditions.
+    aCube = getDefaultCube()
+    aCube.u = np.array([["green","white","red"],
+                        ["white","white","white"],
+                        ["yellow","white","orange"]])
+    aCube.f = np.array([["green","green","red"],
+                        ["white","red","white"],
+                        ["yellow","white","orange"]])
+    assert nerd.Nerd.whiteBadCrossComplete(aCube)
 
 ## Test algorithm to solve edge flip.
 def test_edge_flip_algorithm():
@@ -156,7 +167,22 @@ def test_solve_completed_cube():
     assert aCube == getDefaultCube()
 
 def test_solve_one_flip():
-    aCube = getDefaultCube()
-    aCube.rotateSide("r")
-    aCube = nerd.Nerd.solve(aCube)
-    assert aCube == getDefaultCube()
+    aCube10 = getDefaultCube()
+    aCube10.rotateSide("r")
+    nerd.Nerd.solve(aCube10)
+    assert nerd.Nerd.whiteBadCrossComplete(aCube10)
+
+def test_solve_two_flip():
+    aCube10 = getDefaultCube()
+    aCube10.rotateSide("r")
+    aCube10.rotateSide("f")
+    nerd.Nerd.solve(aCube10)
+    assert nerd.Nerd.whiteBadCrossComplete(aCube10)
+
+def test_solve_tree_flip():
+    aCube10 = getDefaultCube()
+    aCube10.rotateSide("r")
+    aCube10.rotateSide("f")
+    aCube10.rotateSide("d")
+    nerd.Nerd.solve(aCube10)
+    assert nerd.Nerd.whiteBadCrossComplete(aCube10)
