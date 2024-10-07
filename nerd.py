@@ -2,6 +2,7 @@
 
 import cube
 import numpy as np
+import cirularLinkedList as cll
 
 class Nerd:
 
@@ -206,24 +207,76 @@ class Nerd:
     @staticmethod
     def badCrossToGood(cube):
         ## Takes a "bad" white cross and changes it to a "good" one.
-        permutation = [cube.l,cube.f,cube.r,cube.b]
-        opposites = {
-            ["green","orange","red","blue"]:1,
-            ["blue","green","orange","red"]:2,
-            ["red","blue","green","orange"]:3,
-            ["orange","red","blue","green"]:4
-        }
-        correctOrder = {
-            ["green","blue","red","orange"]:1,
-            ["blue","red","orange","green"]:2,
-            ["red","orange","green","blue"]:3,
-            ["orange","green","blue","red"]:4
-        }
-        if permutation in opposites:
-            ## Add method to flip opposite.
-            doFlip(cube)
-        #elif permutation not in correctOrder:
-            ## Swap adjacent.
+
+        badCubeOrder = cll.CircularLinkedList()
+        badCubeOrder.append(cube.l[0,1])
+        badCubeOrder.append(cube.f[0,1])
+        badCubeOrder.append(cube.r[0,1])
+        badCubeOrder.append(cube.b[0,1])
+
+        # An data object that represents the arrangement with circular symmetry.
+        correctOrder = cll.CircularLinkedList()
+        correctOrder.append("green")
+        correctOrder.append("red")
+        correctOrder.append("blue")
+        correctOrder.append("orange")
+        ## All permutations of this arrangement:
+        opposites1 = cll.CircularLinkedList()
+        opposites1.append("green")
+        opposites1.append("orange") #swapped
+        opposites1.append("blue")
+        opposites1.append("red") #swapped
+        opposites2 = cll.CircularLinkedList()
+        opposites2.append("blue") #swapped
+        opposites2.append("red")
+        opposites2.append("green") #swapped
+        opposites2.append("orange")
+        reversed = cll.CircularLinkedList()
+        reversed.append("orange") #swapped
+        reversed.append("blue") #swapped
+        reversed.append("red") #swapped
+        reversed.append("green") #swapped
+        adjacentFlip1 = cll.CircularLinkedList()
+        adjacentFlip1.append("red") #swapped
+        adjacentFlip1.append("green") #swapped
+        adjacentFlip1.append("blue")
+        adjacentFlip1.append("orange")
+        adjacentFlip2 = cll.CircularLinkedList()
+        adjacentFlip2.append("green")
+        adjacentFlip2.append("blue") #swapped
+        adjacentFlip2.append("red") #swapped
+        adjacentFlip2.append("orange")
+        adjacentFlip3 = cll.CircularLinkedList()
+        adjacentFlip3.append("green")
+        adjacentFlip3.append("red")
+        adjacentFlip3.append("orange") #swapped
+        adjacentFlip3.append("blue") #swapped
+        adjacentFlip4 = cll.CircularLinkedList()
+        adjacentFlip4.append("orange") #swapped
+        adjacentFlip4.append("red")
+        adjacentFlip4.append("blue")
+        adjacentFlip4.append("green") #swapped
+
+        if badCubeOrder == opposites1:
+            cube.resetLabels()
+            opposites()
+        if badCubeOrder == opposites2:
+            cube.resetLabels()
+            opposites()
+        if badCubeOrder == reversed:
+            opposites()
+            opposites()
+        if badCubeOrder == adjacentFlip1:
+            flip()
+        if badCubeOrder == adjacentFlip2:
+            flip()
+        if badCubeOrder == adjacentFlip3:
+            flip()
+        if badCubeOrder == adjacentFlip4:
+            flip()
+            
+
+        
         
         
         
