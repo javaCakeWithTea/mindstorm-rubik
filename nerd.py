@@ -202,6 +202,31 @@ class Nerd:
         cube.rotateLabeledSide("f")
         cube.rotateLabeledSide("f")
         return cube
+    
+    @staticmethod
+    def badCrossToGood(cube):
+        ## Takes a "bad" white cross and changes it to a "good" one.
+        permutation = [cube.l,cube.f,cube.r,cube.b]
+        opposites = {
+            ["green","orange","red","blue"]:1,
+            ["blue","green","orange","red"]:2,
+            ["red","blue","green","orange"]:3,
+            ["orange","red","blue","green"]:4
+        }
+        correctOrder = {
+            ["green","blue","red","orange"]:1,
+            ["blue","red","orange","green"]:2,
+            ["red","orange","green","blue"]:3,
+            ["orange","green","blue","red"]:4
+        }
+        if permutation in opposites:
+            ## Add method to flip opposite.
+            doFlip(cube)
+        #elif permutation not in correctOrder:
+            ## Swap adjacent.
+        
+        
+        
 
 
 
