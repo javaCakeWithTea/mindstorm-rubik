@@ -213,29 +213,25 @@ class Nerd:
         badCubeOrder.append(cube.f[0,1])
         badCubeOrder.append(cube.r[0,1])
         badCubeOrder.append(cube.b[0,1])
+        badCubeFaceDict = {cube.l[0,1]:"l",cube.f[0,1]:"f",cube.r[0,1]:"r",cube.b[0,1]:"b"}
 
-        # An data object that represents the arrangement with circular symmetry.
+        # A data object that represents the arrangement with circular symmetry.
         correctOrder = cll.CircularLinkedList()
         correctOrder.append("green")
         correctOrder.append("red")
         correctOrder.append("blue")
         correctOrder.append("orange")
         ## All permutations of this arrangement:
-        opposites1 = cll.CircularLinkedList()
-        opposites1.append("green")
-        opposites1.append("orange") #swapped
-        opposites1.append("blue")
-        opposites1.append("red") #swapped
-        opposites2 = cll.CircularLinkedList()
-        opposites2.append("blue") #swapped
-        opposites2.append("red")
-        opposites2.append("green") #swapped
-        opposites2.append("orange")
         reversed = cll.CircularLinkedList()
+        reversed.append("green")
         reversed.append("orange") #swapped
-        reversed.append("blue") #swapped
+        reversed.append("blue")
         reversed.append("red") #swapped
-        reversed.append("green") #swapped
+        twoOpposite = cll.CircularLinkedList()
+        twoOpposite.append("blue") #swapped
+        twoOpposite.append("orange") #swapped
+        twoOpposite.append("green") #swapped
+        twoOpposite.append("red") #swapped
         adjacentFlip1 = cll.CircularLinkedList()
         adjacentFlip1.append("red") #swapped
         adjacentFlip1.append("green") #swapped
@@ -257,24 +253,56 @@ class Nerd:
         adjacentFlip4.append("blue")
         adjacentFlip4.append("green") #swapped
 
-        if badCubeOrder == opposites1:
-            cube.resetLabels()
-            opposites()
-        if badCubeOrder == opposites2:
-            cube.resetLabels()
-            opposites()
         if badCubeOrder == reversed:
-            opposites()
-            opposites()
+            cube.resetLabels()
+            cube.centreOnFace(badCubeFaceDict["orange"])
+            return Nerd.opposites(cube)
+        if badCubeOrder == twoOpposite:
+            cube.resetLabels()
+            cube.centreOnFace(badCubeFaceDict["orange"])
+            Nerd.opposites(cube)
+            cube.resetLabels()
+            cube.centreOnFace(badCubeFaceDict["blue"])
+            return Nerd.opposites(cube)
         if badCubeOrder == adjacentFlip1:
-            flip()
+            cube.resetLabels()
+            cube.centreOnFace(badCubeFaceDict["red"])
+            Nerd.flip(cube)
         if badCubeOrder == adjacentFlip2:
-            flip()
+            cube.resetLabels()
+            cube.centreOnFace(badCubeFaceDict["blue"])
+            return Nerd.flip(cube)
         if badCubeOrder == adjacentFlip3:
-            flip()
+            cube.resetLabels()
+            cube.centreOnFace(badCubeFaceDict["orange"])
+            return Nerd.flip(cube)
         if badCubeOrder == adjacentFlip4:
-            flip()
-            
+            cube.resetLabels()
+            cube.centreOnFace(badCubeFaceDict["green"])
+            return Nerd.flip(cube)
+
+    @staticmethod
+    def opposites(cube):
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("b")
+        cube.rotateLabeledSide("b")
+        cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("b")
+        cube.rotateLabeledSide("b")
+        return cube
+    
+    @staticmethod
+    def flip(cube):
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("r")
+        return cube
 
         
         
