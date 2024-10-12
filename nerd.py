@@ -1,4 +1,5 @@
-## A virtual nerd to solve the cube. The nerd has learnt the "beginner" algorithm.
+## A virtual nerd to solve the cube. 
+## This nerd has learnt how to solve the white cross.
 
 import cube
 import numpy as np
