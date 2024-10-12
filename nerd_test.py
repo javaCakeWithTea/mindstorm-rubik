@@ -195,3 +195,31 @@ class TestNerdMethods(unittest.TestCase):
         nerd.Nerd.solve(aCube10)
         print(aCube10.l[0,1],aCube10.f[0,1],aCube10.r[0,1],aCube10.b[0,1])
         self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube10))
+
+    def test_Bad_To_Good_opposites_1(self):
+        aCube = getDefaultCube()
+        aCube.f[0,1] = "orange"
+        aCube.b[0,1] = "red"
+        aCube = nerd.Nerd.badCrossToGood(aCube)
+        self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))
+
+    def test_Bad_To_Good_opposites_2(self):
+        aCube = getDefaultCube()
+        aCube.r[0,1] = "blue"
+        aCube.l[0,1] = "green"
+        aCube = nerd.Nerd.badCrossToGood(aCube)
+        self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))
+
+    def test_Bad_To_Good_adjacent_1(self):
+        aCube = getDefaultCube()
+        aCube.f[0,1] = "blue"
+        aCube.r[0,1] = "red"
+        aCube = nerd.Nerd.badCrossToGood(aCube)
+        self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))
+
+    def test_Bad_To_Good_adjacent_2(self):
+        aCube = getDefaultCube()
+        aCube.r[0,1] = "orange"
+        aCube.b[0,1] = "blue"
+        aCube = nerd.Nerd.badCrossToGood(aCube)
+        self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))

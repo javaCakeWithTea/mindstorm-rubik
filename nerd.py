@@ -88,7 +88,7 @@ class Nerd:
             leftOfCross = (aCube.u[1,0]=="white")
             rightOfCross = (aCube.u[1,2]=="white")
             aCube = Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,0)
-            return aCube
+            return Nerd.badCrossToGood(aCube)
 
     @staticmethod 
     def solveBadCross(aCube:cube.Cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,numberOfBottomTwoLayerRotations):
@@ -302,6 +302,11 @@ class Nerd:
         cube.rotateLabeledSide("d")
         cube.rotateLabeledSide("r")
         cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
         return cube
 
         
