@@ -165,9 +165,9 @@ class Cube:
             self.labelU = "f"
         elif face == "b":
             self.labelF = "b"
-            self.labelD = "u"
+            self.labelL = "r"
+            self.labelR = "l"
             self.labelB = "f"
-            self.labelU = "d"
         elif face == "r":
             self.labelF = "r"
             self.labelL = "f"
