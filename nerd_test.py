@@ -214,6 +214,28 @@ class TestNerdMethods(unittest.TestCase):
         solvedCube = nerd.Nerd.fromDFace(aCube)
         self.assertTrue(solvedCube.u[2,1] == "white")
 
+    def test_from_bottom_face_5(self):
+        aCube = getDefaultCube()
+        aCube.u = np.array([["green","white","red"],
+                            ["white","white","green"],
+                            ["yellow","white","orange"]])
+        aCube.d = np.array([["green","green","red"],
+                            ["yellow","yellow","orange"],
+                            ["yellow","white","orange"]])
+        solvedCube = nerd.Nerd.fromDFace(aCube)
+        self.assertTrue(solvedCube.u[1,2] == "white")
+
+    def test_from_bottom_face_6(self):
+        aCube = getDefaultCube()
+        aCube.u = np.array([["green","white","red"],
+                            ["green","white","white"],
+                            ["yellow","white","orange"]])
+        aCube.d = np.array([["green","white","red"],
+                            ["yellow","yellow","orange"],
+                            ["yellow","orange","orange"]])
+        solvedCube = nerd.Nerd.fromDFace(aCube)
+        self.assertTrue(solvedCube.u[1,0] == "white")
+
     def test_solve_completed_cube(self):
         aCube = getDefaultCube()
         aCube = nerd.Nerd.solve(aCube)
