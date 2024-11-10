@@ -77,6 +77,20 @@ class TestNerdMethods(unittest.TestCase):
         solvedCube = nerd.Nerd.flipEdge(aCube)
         self.assertTrue(solvedCube.u[2,1] == "white")
 
+    
+    ## Test algorithm to solve edge flip.
+    def test_edge_flip_algorithm2(self):
+        aCube = getDefaultCube()
+        aCube.u = np.array([["green","white","red"],
+                            ["white","white","blue"],
+                            ["yellow","white","orange"]])
+        aCube.r = np.array([["green","white","red"],
+                            ["yellow","blue","orange"],
+                            ["yellow","green","orange"]])
+        aCube.centreOnFace("r")
+        nerd.Nerd.flipEdge(aCube)
+        self.assertTrue(aCube.u[1,2] == "white")
+
     ## Test algorithm to from bottom layer.
     def test_from_bottom_layer_algorithm(self):
         aCube = getDefaultCube()
@@ -88,6 +102,45 @@ class TestNerdMethods(unittest.TestCase):
                             ["yellow","white","orange"]])
         solvedCube = nerd.Nerd.fromBottomLayer(aCube)
         self.assertTrue(solvedCube.u[2,1] == "white")
+
+    ## Test algorithm to from bottom layer.
+    def test_from_bottom_layer_algorithm2(self):
+        aCube = getDefaultCube()
+        aCube.u = np.array([["green","orange","red"],
+                            ["white","white","white"],
+                            ["yellow","white","orange"]])
+        aCube.b = np.array([["green","orange","red"],
+                            ["yellow","orange","orange"],
+                            ["yellow","white","orange"]])
+        aCube.centreOnFace("b")
+        nerd.Nerd.fromBottomLayer(aCube)
+        self.assertTrue(aCube.u[0,1] == "white")
+
+     ## Test algorithm to from bottom layer.
+    def test_from_bottom_layer_algorithm3(self):
+        aCube = getDefaultCube()
+        aCube.u = np.array([["green","white","red"],
+                            ["white","white","blue"],
+                            ["yellow","white","orange"]])
+        aCube.r = np.array([["green","orange","red"],
+                            ["yellow","orange","orange"],
+                            ["yellow","white","orange"]])
+        aCube.centreOnFace("r")
+        nerd.Nerd.fromBottomLayer(aCube)
+        self.assertTrue(aCube.u[1,2] == "white")
+
+    ## Test algorithm to from bottom layer.
+    def test_from_bottom_layer_algorithm4(self):
+        aCube = getDefaultCube()
+        aCube.u = np.array([["green","white","red"],
+                            ["green","white","white"],
+                            ["yellow","white","orange"]])
+        aCube.l = np.array([["green","green","red"],
+                            ["yellow","green","orange"],
+                            ["yellow","white","orange"]])
+        aCube.centreOnFace("l")
+        nerd.Nerd.fromBottomLayer(aCube)
+        self.assertTrue(aCube.u[1,0] == "white")
 
     ## Test algorithm to from middle layer right side.
     def test_from_middle_layer_right_algorithm(self):
@@ -186,6 +239,22 @@ class TestNerdMethods(unittest.TestCase):
         aCube10.rotateSide("d")
         nerd.Nerd.solve(aCube10)
         self.assertTrue(nerd.Nerd.whiteBadCrossComplete(aCube10))
+
+    def test_solve_three_flip_2(self):
+        aCube11 = getDefaultCube()
+        aCube11.rotateSide("b")
+        aCube11.rotateSide("u")
+        aCube11.rotateSide("l")
+        nerd.Nerd.solve(aCube11)
+        self.assertTrue(nerd.Nerd.whiteBadCrossComplete(aCube11))
+
+    def test_solve_three_flip_3(self):
+        aCube11 = getDefaultCube()
+        aCube11.rotateSide("f")
+        aCube11.rotateSide("d")
+        aCube11.rotateSide("b")
+        nerd.Nerd.solve(aCube11)
+        self.assertTrue(nerd.Nerd.whiteBadCrossComplete(aCube11))
 
     def test_solve_tree_flip_good_cross(self):
         aCube10 = getDefaultCube()

@@ -17,7 +17,7 @@ class Nerd:
     ## Static methods do not need self as argument.
     @staticmethod
     def whiteCrossComplete(aCube):
-        ## Checks if the white cross stage is complete.
+        ##Checks if the white cross stage is complete.
         uFace = np.array([["any","white","any"],
             ["white","white","white"],
             ["any","white","any"]])
@@ -88,8 +88,8 @@ class Nerd:
             bottomOfCross = (aCube.u[2,1]=="white")
             leftOfCross = (aCube.u[1,0]=="white")
             rightOfCross = (aCube.u[1,2]=="white")
-            aCube = Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,0)
-            return Nerd.badCrossToGood(aCube)
+            
+            return Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,0)
 
     @staticmethod 
     def solveBadCross(aCube:cube.Cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,numberOfBottomTwoLayerRotations):
@@ -105,7 +105,7 @@ class Nerd:
         else:
             ## Move the bottom two layers to original position.
             ## Means that faces remain the same colour.
-            for i in range(4-numberOfBottomTwoLayerRotations%4):
+            for i in range(3*numberOfBottomTwoLayerRotations):
                 aCube.rotateBottom2Rows()
             return aCube
 

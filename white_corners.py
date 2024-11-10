@@ -1,3 +1,5 @@
+import numpy as np
+import cube
 
 class white_corners:
     ## This nerd has learnt to go from a white cross to a complete white face.
@@ -113,6 +115,36 @@ class white_corners:
         else:
             print("Something wrong!")
             return
+        
+
+    @staticmethod
+    def whiteCornersComplete(aCube):
+        ##Checks if the white corners stage is complete.
+        uFace = np.array([["any","white","any"],
+            ["white","white","white"],
+            ["any","white","any"]])
+        fFace = np.array([["red","red","red"],
+            ["any","red","any"],
+            ["any","any","any"]])
+        rFace = np.array([["blue","blue","blue"],
+            ["any","blue","any"],
+            ["any","any","any"]])
+        lFace = np.array([["green","green","green"],
+            ["any","green","any"],
+            ["any","any","any"]])
+        bFace = np.array([["orange","orange","orange"],
+            ["any","orange","any"],
+            ["any","any","any"]])
+        dFace = np.array([["any","any","any"],
+            ["any","yellow","any"],
+            ["any","any","any"]])
+        
+        completeWhiteCorners = cube.Cube(fFace,uFace,lFace,rFace,bFace,dFace)
+        
+        if aCube == completeWhiteCorners:
+            return True
+        else:
+            return False
 
     
 
