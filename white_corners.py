@@ -7,19 +7,8 @@ class white_corners:
     ## 2. Correct corner is in place and in wrong orientation.
     ## 3. Wrong white corner is in place.
     ## 4. Non-white corner is in place.
-
-    ## Algo R'FRF' swaps the corners.
     @staticmethod
     def solve(cube):
-        topLeftNeeded = {"white","green","orange"}
-        topRightNeeded = {"white","blue","orange"}
-        bottomLeftNeeded = {"white","green","red"}
-        bottomRightNeeded = {"white","red","blue"}
-        topLeftCorner = {cube.u[0,0],cube.l[0,0],cube.b[0,2]}
-        topRightCorner = {cube.u[0,2],cube.r[0,2],cube.b[0,0]}
-        bottomLeftCorner = {cube.u[2,0],cube.f[0,0],cube.l[0,2]}
-        bottomRightCorner = {cube.u[2,2],cube.f[0,2],cube.r[0,0]}
-
         ## First start by getting all the white corners an the non-white side of the cube. 
         ## Once they are here, the algorithm will not move these corners to the other side.
 
@@ -31,8 +20,18 @@ class white_corners:
         white_corners.popCorner(cube)
         cube.centreOnFace("l")
         white_corners.popCorner(cube)
-    
-        
+
+        ## Then orientate the correct corner over the position it needs to be and swap it in.
+        cube.centreOnFace("f")
+        white_corners.putCornerInPlace(cube)
+        cube.centreOnFace("r")
+        white_corners.putCornerInPlace(cube)
+        cube.centreOnFace("b")
+        white_corners.putCornerInPlace(cube)
+        cube.centreOnFace("l")
+        white_corners.putCornerInPlace(cube)
+
+        return cube
     
     @staticmethod
     def isTopCornerWhite(cube):
@@ -75,6 +74,9 @@ class white_corners:
 
     @staticmethod
     def swapAlgo(cube):  
+        ## Swaps the corner in the top and the bottom. 
+        ## Keeps all bottom corners in bottom and top corners in top.
+        ## Keeps all top corners in position.
         ## R' F R F' 
         cube.rotateLabelledSide("r")
         cube.rotateLabelledSide("r")
@@ -84,6 +86,34 @@ class white_corners:
         cube.rotateLabelledSide("f")
         cube.rotateLabelledSide("f")
         cube.rotateLabelledSide("f")
+
+    @staticmethod
+    def putCornerInPlace(cube):
+        currentFront = cube.labelF
+        if currentFront == "f":
+            while {cube.f[2,2],cube.r[2,0],cube.d[0,2]} != {"white","red","blue"}:
+                cube.rotateSide("d")
+            while cube.u[2,2] != "white" or cube.f[0,2] != "red" or cube.r[0,0] != "blue":
+                white_corners.swapAlgo(cube)
+        elif currentFront == "r":
+            while {cube.r[2,2],cube.b[2,0],cube.d[2,2]} != {"white","blue","orange"}:
+                cube.rotateSide("d")
+            while cube.u[0,2] != "white" or cube.r[0,2] != "blue" or cube.b[0,0] != "orange":
+                white_corners.swapAlgo(cube)
+        elif currentFront == "b":
+            while {cube.b[2,2],cube.l[2,0],cube.d[2,0]} != {"white","green","orange"}:
+                cube.rotateSide("d")
+            while cube.u[0,0] != "white" or cube.l[0,0] != "green" or cube.b[0,2] != "orange":
+                white_corners.swapAlgo(cube)
+        elif currentFront == "l":
+            while {cube.l[2,2],cube.f[2,0],cube.d[0,0]} != {"white","green","red"}:
+                cube.rotateSide("d")
+            while cube.u[2,0] != "white" or cube.f[0,0] != "red" or cube.l[0,2] != "green":
+                white_corners.swapAlgo(cube)
+        else:
+            print("Something wrong!")
+            return
+
     
 
         
