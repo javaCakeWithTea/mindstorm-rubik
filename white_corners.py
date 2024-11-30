@@ -80,14 +80,14 @@ class white_corners:
         ## Keeps all bottom corners in bottom and top corners in top.
         ## Keeps all top corners in position.
         ## R' F R F' 
-        cube.rotateLabelledSide("r")
-        cube.rotateLabelledSide("r")
-        cube.rotateLabelledSide("r")
-        cube.rotateLabelledSide("f")
-        cube.rotateLabelledSide("r")
-        cube.rotateLabelledSide("f")
-        cube.rotateLabelledSide("f")
-        cube.rotateLabelledSide("f")
+        cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("r")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("f")
 
     @staticmethod
     def putCornerInPlace(cube):

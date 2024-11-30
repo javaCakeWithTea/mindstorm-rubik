@@ -17,10 +17,22 @@ def getDefaultCube():
 
 class WhiteCornersTest(unittest.TestCase): 
 
-    def test_white_corners_complete_assertion(self):
+    def test_white_corners_complete_assertion_1(self):
         ## Solved cube should pass.
         aCube = getDefaultCube()
         self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
+
+    def test_white_corners_complete_assertion_2(self):
+        ## Solved cube should pass.
+        aCube = getDefaultCube()
+        aCube.rotateSide("d")
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
+
+    def test_white_corners_complete_assertion_neg_1(self):
+        ## Solved cube should pass.
+        aCube = getDefaultCube()
+        aCube.rotateSide("r")
+        self.assertFalse(white_corners.white_corners.whiteCornersComplete(aCube))
 
     def test_can_get_from_white_cross_to_corners(self):
         aCube = getDefaultCube()
@@ -28,5 +40,6 @@ class WhiteCornersTest(unittest.TestCase):
         aCube.rotateSide("b")
         nerd.Nerd.solve(aCube)
         self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(white_corners.white_corners.solve(aCube)))
 
         
