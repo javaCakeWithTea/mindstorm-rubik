@@ -222,7 +222,7 @@ class TestNerdMethods(unittest.TestCase):
         aCube.d = np.array([["green","green","red"],
                             ["yellow","yellow","orange"],
                             ["yellow","white","orange"]])
-        solvedCube = nerd.Nerd.fromDFace(aCube)
+        solvedCube = nerd.Nerd.solve(aCube)
         self.assertTrue(solvedCube.u[1,2] == "white")
 
     def test_from_bottom_face_6(self):
@@ -233,7 +233,7 @@ class TestNerdMethods(unittest.TestCase):
         aCube.d = np.array([["green","white","red"],
                             ["yellow","yellow","orange"],
                             ["yellow","orange","orange"]])
-        solvedCube = nerd.Nerd.fromDFace(aCube)
+        solvedCube = nerd.Nerd.solve(aCube)
         self.assertTrue(solvedCube.u[1,0] == "white")
 
     def test_solve_completed_cube(self):
@@ -296,8 +296,8 @@ class TestNerdMethods(unittest.TestCase):
 
     def test_Bad_To_Good_opposites_2(self):
         aCube = getDefaultCube()
-        aCube.r[0,1] = "blue"
-        aCube.l[0,1] = "green"
+        aCube.r[0,1] = "green"
+        aCube.l[0,1] = "blue"
         aCube = nerd.Nerd.badCrossToGood(aCube)
         self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))
 
@@ -312,5 +312,14 @@ class TestNerdMethods(unittest.TestCase):
         aCube = getDefaultCube()
         aCube.r[0,1] = "orange"
         aCube.b[0,1] = "blue"
+        aCube = nerd.Nerd.badCrossToGood(aCube)
+        self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))
+
+    def test_Bad_To_Good_just_wrong_order(self):
+        aCube = getDefaultCube()
+        aCube.r[0,1] = "orange"
+        aCube.b[0,1] = "green"
+        aCube.l[0,1] = "red"
+        aCube.f[0,1] = "blue"
         aCube = nerd.Nerd.badCrossToGood(aCube)
         self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))

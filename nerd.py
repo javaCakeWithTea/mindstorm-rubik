@@ -192,15 +192,32 @@ class Nerd:
         ## Side d is always d for any of the white cross re-labels.
         faceD = cube.d
 
+        faceSumMap = {"l":1,"f":2,"r":3,"b":4}
+        faceNumber = faceSumMap.get(cube.labelF)
+
         if faceD[2,1]=="white":
-            cube.rotateLabeledSide("d")
-            cube.rotateLabeledSide("d")
-        elif faceD[1,0]=="white":
-            cube.rotateLabeledSide("d")
-        elif faceD[1,2]=="white":
-            cube.rotateLabeledSide("d")
-            cube.rotateLabeledSide("d")
-            cube.rotateLabeledSide("d")
+            dFaceNumber = 4
+        if faceD[1,0]=="white":
+            dFaceNumber = 1
+        if faceD[1,2]=="white":
+            dFaceNumber = 3
+        if faceD[0,1]=="white":
+            dFaceNumber = 2
+
+        difference = faceNumber - dFaceNumber
+
+        print(difference)
+
+        if difference < 0:
+            rotations = 4 + difference
+        elif difference > 0:
+            rotations = difference
+        else:
+            rotations = 0
+        
+        for i in range(0,rotations):
+            cube.rotateSide("d")
+        
         cube.rotateLabeledSide("f")
         cube.rotateLabeledSide("f")
         return cube
@@ -256,15 +273,15 @@ class Nerd:
 
         if badCubeOrder == reversed:
             cube.resetLabels()
-            cube.centreOnFace(badCubeFaceDict["orange"])
-            return Nerd.opposites(cube)
+            cube.centreOnFace(badCubeFaceDict["blue"])
+            Nerd.opposites(cube)
         if badCubeOrder == twoOpposite:
             cube.resetLabels()
             cube.centreOnFace(badCubeFaceDict["orange"])
             Nerd.opposites(cube)
             cube.resetLabels()
             cube.centreOnFace(badCubeFaceDict["blue"])
-            return Nerd.opposites(cube)
+            Nerd.opposites(cube)
         if badCubeOrder == adjacentFlip1:
             cube.resetLabels()
             cube.centreOnFace(badCubeFaceDict["red"])
@@ -272,16 +289,31 @@ class Nerd:
         if badCubeOrder == adjacentFlip2:
             cube.resetLabels()
             cube.centreOnFace(badCubeFaceDict["blue"])
-            return Nerd.flip(cube)
+            Nerd.flip(cube)
         if badCubeOrder == adjacentFlip3:
             cube.resetLabels()
             cube.centreOnFace(badCubeFaceDict["orange"])
-            return Nerd.flip(cube)
+            Nerd.flip(cube)
         if badCubeOrder == adjacentFlip4:
             cube.resetLabels()
             cube.centreOnFace(badCubeFaceDict["green"])
-            return Nerd.flip(cube)
+            Nerd.flip(cube)
+        
+        print("White cross is good now, just needs some re-arrangement...")
+        faceF = cube.f
+        rotations = 0
+        if faceF[0,1]=="blue":
+            rotations = 3
+        if faceF[0,1]=="orange":
+            rotations = 2
+        if faceF[0,1]=="green":
+            rotations = 1
+        print(rotations)
+        for i in range(0,rotations):
+            cube.rotateSide("u")
 
+        return cube
+        
     @staticmethod
     def opposites(cube):
         cube.rotateLabeledSide("f")
