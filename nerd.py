@@ -79,8 +79,8 @@ class Nerd:
         ## 1. White cross.
         ## Locate whites that aren't corners.
         ## U is the white side.
-        if Nerd.whiteBadCrossComplete(aCube):
-            print("Bad white cross is complete.")
+        if Nerd.whiteCrossComplete(aCube):
+            print("White cross is complete.")
             return aCube
         else:
             ## Check which bits of the cross are complete.
@@ -89,7 +89,7 @@ class Nerd:
             leftOfCross = (aCube.u[1,0]=="white")
             rightOfCross = (aCube.u[1,2]=="white")
             
-            return Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,0)
+            return Nerd.badCrossToGood(Nerd.solveBadCross(aCube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,0))
 
     @staticmethod 
     def solveBadCross(aCube:cube.Cube,topOfCross,bottomOfCross,leftOfCross,rightOfCross,numberOfBottomTwoLayerRotations):

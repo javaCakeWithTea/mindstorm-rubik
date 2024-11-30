@@ -287,6 +287,18 @@ class TestNerdMethods(unittest.TestCase):
         print(aCube10.l[0,1],aCube10.f[0,1],aCube10.r[0,1],aCube10.b[0,1])
         self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube10))
 
+    def test_solve_many_flip_to_good_cross(self):
+        aCube10 = getDefaultCube()
+        aCube10.rotateSide("r")
+        aCube10.rotateSide("f")
+        aCube10.rotateSide("d")
+        aCube10.rotateSide("r")
+        aCube10.rotateSide("b")
+        aCube10.rotateSide("u")
+        nerd.Nerd.solve(aCube10)
+        print(aCube10.l[0,1],aCube10.f[0,1],aCube10.r[0,1],aCube10.b[0,1])
+        self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube10))
+
     def test_Bad_To_Good_opposites_1(self):
         aCube = getDefaultCube()
         aCube.f[0,1] = "orange"
