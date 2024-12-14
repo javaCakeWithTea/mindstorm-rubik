@@ -10,18 +10,11 @@ class white_corners:
     ## 3. Wrong white corner is in place.
     ## 4. Non-white corner is in place.
     @staticmethod
-    def solve(cube):
-        ## First start by getting all the white corners an the non-white side of the cube. 
+    def solve(cube:cube.Cube):
+        ## First start by getting all the white corners on the non-white side of the cube. 
         ## Once they are here, the algorithm will not move these corners to the other side.
 
-        cube.centreOnFace("f")
-        white_corners.popCorner(cube)
-        cube.centreOnFace("r")
-        white_corners.popCorner(cube)
-        cube.centreOnFace("b")
-        white_corners.popCorner(cube)
-        cube.centreOnFace("l")
-        white_corners.popCorner(cube)
+        white_corners.removeWhiteCornersFromU(cube)
 
         ## Then orientate the correct corner over the position it needs to be and swap it in.
         cube.centreOnFace("f")
@@ -36,19 +29,48 @@ class white_corners:
         return cube
     
     @staticmethod
-    def isTopCornerWhite(cube):
-        currentFront = cube.labelF
-        if currentFront == "f":
-            return cube.f[0,2] == "white" or cube.r[0,0] == "white" or cube.u[2,2] == "white"
-        elif currentFront == "r":
-            return cube.r[0,2] == "white" or cube.b[0,0] == "white" or cube.u[0,2] == "white"
-        elif currentFront == "b":
-            return cube.b[0,2] == "white" or cube.l[0,0] == "white" or cube.u[0,0] == "white"
-        elif currentFront == "l":
-            return cube.l[0,2] == "white" or cube.f[0,0] == "white" or cube.u[2,0] == "white"
-        else:
-            print("Something wrong!")
-            return
+    def removeWhiteCornersFromU(cube:cube.Cube):
+        if cube.f[0,2] == "white" or cube.r[0,0] == "white" or cube.u[2,2] == "white":
+            while cube.r[2,2] == "white" or cube.b[2,0] == "white" or cube.d[2,2] == "white":
+                cube.rotateSide("d")
+            cube.rotateSide("f")
+            cube.rotateSide("d")
+            cube.rotateSide("d")
+            cube.rotateSide("d")
+            cube.rotateSide("f")
+            cube.rotateSide("f")
+            cube.rotateSide("f")
+        if cube.r[0,2] == "white" or cube.b[0,0] == "white" or cube.u[0,2] == "white":
+            while cube.b[2,2] == "white" or cube.l[2,0] == "white" or cube.d[2,0] == "white":
+                cube.rotateSide("d")
+            cube.rotateSide("r")
+            cube.rotateSide("d")
+            cube.rotateSide("d")
+            cube.rotateSide("d")
+            cube.rotateSide("r")
+            cube.rotateSide("r")
+            cube.rotateSide("r")
+        if cube.b[0,2] == "white" or cube.l[0,0] == "white" or cube.u[0,0] == "white":
+            while cube.l[2,2] == "white" or cube.f[2,0] == "white" or cube.d[0,0] == "white":
+                cube.rotateSide("d")
+            cube.rotateSide("b")
+            cube.rotateSide("d")
+            cube.rotateSide("d")
+            cube.rotateSide("d")
+            cube.rotateSide("b")
+            cube.rotateSide("b")
+            cube.rotateSide("b")
+        if cube.l[0,2] == "white" or cube.f[0,0] == "white" or cube.u[2,0] == "white":
+            while cube.f[2,2] == "white" or cube.r[2,0] == "white" or cube.d[0,2] == "white":
+                cube.rotateSide("d")
+            cube.rotateSide("l")
+            cube.rotateSide("d")
+            cube.rotateSide("d")
+            cube.rotateSide("d")
+            cube.rotateSide("l")
+            cube.rotateSide("l")
+            cube.rotateSide("l")
+        return
     
     @staticmethod
     def isBottomCornerWhite(cube):
@@ -64,15 +86,6 @@ class white_corners:
         else:
             print("Something wrong!")
             return
-        
-    @staticmethod
-    def popCorner(cube):
-        if white_corners.isTopCornerWhite(cube) and white_corners.isBottomCornerWhite(cube):
-            while white_corners.isBottomCornerWhite(cube):
-                cube.rotateSide("d")
-        elif not white_corners.isTopCornerWhite(cube) and not white_corners.isBottomCornerWhite(cube):
-            return
-        white_corners.swapAlgo(cube) 
 
     @staticmethod
     def swapAlgo(cube):  
