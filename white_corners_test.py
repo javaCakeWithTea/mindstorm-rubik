@@ -59,4 +59,19 @@ class WhiteCornersTest(unittest.TestCase):
         nerd.Nerd.solve(aCube)
         white_corners.white_corners.removeWhiteCornersFromU(aCube)
         self.assertFalse(aCube.f[0,2] == "white" or aCube.r[0,0] == "white" or aCube.u[2,2] == "white" or aCube.r[0,2] == "white" or aCube.b[0,0] == "white" or aCube.u[0,2] == "white" or aCube.b[0,2] == "white" or aCube.l[0,0] == "white" or aCube.u[0,0] == "white" or aCube.l[0,2] == "white" or aCube.f[0,0] == "white" or aCube.u[2,0] == "white")
+
+    def test_swap_algo_1(self):
+        aCube = getDefaultCube()
+        aCube.rotateSide("f")
+        aCube.rotateSide("d")
+        aCube.rotateSide("d")
+        aCube.rotateSide("d")
+        aCube.rotateSide("f")
+        aCube.rotateSide("f")
+        aCube.rotateSide("f")
+        ## Cube with f corner swapped out with none white.
+        aCube.centreOnFace("f")
+        white_corners.white_corners.swapAlgo(aCube)
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(white_corners.white_corners.solve(aCube)))
+
         

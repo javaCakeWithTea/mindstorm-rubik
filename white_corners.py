@@ -73,7 +73,7 @@ class white_corners:
         return
     
     @staticmethod
-    def isBottomCornerWhite(cube):
+    def isBottomCornerWhite(cube:cube.Cube):
         currentFront = cube.labelF
         if currentFront == "f":
             return cube.f[2,2] == "white" or cube.r[2,0] == "white" or cube.d[0,2] == "white"
@@ -88,7 +88,7 @@ class white_corners:
             return
 
     @staticmethod
-    def swapAlgo(cube):  
+    def swapAlgo(cube:cube.Cube):  
         ## Swaps the corner in the top and the bottom. 
         ## Keeps all bottom corners in bottom and top corners in top.
         ## Keeps all top corners in position.
@@ -96,34 +96,35 @@ class white_corners:
         cube.rotateLabeledSide("r")
         cube.rotateLabeledSide("r")
         cube.rotateLabeledSide("r")
-        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("d")
+        cube.rotateLabeledSide("d")
         cube.rotateLabeledSide("r")
-        cube.rotateLabeledSide("f")
-        cube.rotateLabeledSide("f")
-        cube.rotateLabeledSide("f")
+        cube.rotateLabeledSide("d")
+        return
 
     @staticmethod
-    def putCornerInPlace(cube):
+    def putCornerInPlace(cube:cube.Cube):
         currentFront = cube.labelF
         if currentFront == "f":
-            while {cube.f[2,2],cube.r[2,0],cube.d[0,2]} != {"white","red","blue"}:
+            while [cube.f[2,2],cube.r[2,0],cube.d[0,2]].sort() != ["blue","red","white"]:
                 cube.rotateSide("d")
-            while cube.u[2,2] != "white" or cube.f[0,2] != "red" or cube.r[0,0] != "blue":
+            while cube.u[2,2] != "white":
                 white_corners.swapAlgo(cube)
         elif currentFront == "r":
-            while {cube.r[2,2],cube.b[2,0],cube.d[2,2]} != {"white","blue","orange"}:
+            while [cube.r[2,2],cube.b[2,0],cube.d[2,2]].sort() != {"blue","orange","white"}:
                 cube.rotateSide("d")
-            while cube.u[0,2] != "white" or cube.r[0,2] != "blue" or cube.b[0,0] != "orange":
+            while cube.u[0,2] != "white":
                 white_corners.swapAlgo(cube)
         elif currentFront == "b":
-            while {cube.b[2,2],cube.l[2,0],cube.d[2,0]} != {"white","green","orange"}:
+            while [cube.b[2,2],cube.l[2,0],cube.d[2,0]].sort() != {"green","orange","white"}:
                 cube.rotateSide("d")
-            while cube.u[0,0] != "white" or cube.l[0,0] != "green" or cube.b[0,2] != "orange":
+            while cube.u[0,0] != "white":
                 white_corners.swapAlgo(cube)
         elif currentFront == "l":
-            while {cube.l[2,2],cube.f[2,0],cube.d[0,0]} != {"white","green","red"}:
+            while [cube.l[2,2],cube.f[2,0],cube.d[0,0]].sort() != {"green","red","white"}:
                 cube.rotateSide("d")
-            while cube.u[2,0] != "white" or cube.f[0,0] != "red" or cube.l[0,2] != "green":
+            while cube.u[2,0] != "white":
                 white_corners.swapAlgo(cube)
         else:
             print("Something wrong!")
@@ -131,7 +132,7 @@ class white_corners:
         
 
     @staticmethod
-    def whiteCornersComplete(aCube):
+    def whiteCornersComplete(aCube:cube.Cube):
         ##Checks if the white corners stage is complete.
         uFace = np.array([["any","white","any"],
             ["white","white","white"],
