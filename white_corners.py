@@ -50,7 +50,6 @@ class white_corners:
         ## Keeps all bottom corners in bottom and top corners in top.
         ## Keeps all top corners in position.
         ## R' F R F' 
-        print("Labelled side f =")
         cube.rotateLabeledSide("r")
         cube.rotateLabeledSide("r")
         cube.rotateLabeledSide("r")
@@ -64,25 +63,21 @@ class white_corners:
     @staticmethod
     def putCornersInPlace(cube:cube.Cube):
         cube.centreOnFace("f")
-        while [cube.f[2,2],cube.r[2,0],cube.d[0,2]].sort() != ["blue","red","white"]:
+        while sorted([cube.f[2,2],cube.r[2,0],cube.d[0,2]]) != sorted(["blue","red","white"]):
             cube.rotateSide("d")
-        while cube.u[2,2] != "white":
-            white_corners.swapAlgo(cube)
+            print(1)
         cube.centreOnFace("r")
-        while [cube.r[2,2],cube.b[2,0],cube.d[2,2]].sort() != {"blue","orange","white"}:
+        while sorted([cube.r[2,2],cube.b[2,0],cube.d[2,2]]) != sorted(["blue","orange","white"]): 
             cube.rotateSide("d")
-        while cube.u[0,2] != "white":
-            white_corners.swapAlgo(cube)
+            print(2)
         cube.centreOnFace("b")
-        while [cube.b[2,2],cube.l[2,0],cube.d[2,0]].sort() != {"green","orange","white"}:
+        while sorted([cube.b[2,2],cube.l[2,0],cube.d[2,0]]) != ["green","orange","white"]:
             cube.rotateSide("d")
-        while cube.u[0,0] != "white":
-            white_corners.swapAlgo(cube)
+            print(3)
         cube.centreOnFace("l")
-        while [cube.l[2,2],cube.f[2,0],cube.d[0,0]].sort() != {"green","red","white"}:
+        while sorted([cube.l[2,2],cube.f[2,0],cube.d[0,0]]) != ["green","red","white"]:
             cube.rotateSide("d")
-        while cube.u[2,0] != "white":
-            white_corners.swapAlgo(cube)
+            print(4)
         return    
 
     @staticmethod

@@ -45,6 +45,14 @@ class WhiteCornersTest(unittest.TestCase):
         result3 = aCube.f[0,0] != "white" and aCube.f[0,2] != "white" and aCube.r[0,0] != "white" and aCube.r[0,2] != "white" and aCube.b[0,0] != "white" and aCube.b[0,2] != "white" and aCube.l[0,0] != "white" and aCube.l[0,2] != "white"
         self.assertTrue(result3) ## Check that the peripherals of the top are not white on the corners.
 
+    def test_popped_corners_can_be_added_back(self):
+        aCube = getDefaultCube()
+        white_corners.white_corners.removeWhiteCornersFromU(aCube)
+        print([aCube.f[2,2],aCube.r[2,0],aCube.d[0,2]])
+        print([aCube.r[2,2],aCube.b[2,0],aCube.d[2,2]])
+        print([aCube.b[2,2],aCube.l[2,0],aCube.d[2,0]])
+        print([aCube.l[2,2],aCube.f[2,0],aCube.d[0,0]])
+
     def test_swap_algo_1(self):
         aCube = getDefaultCube()
         white_corners.white_corners.swapAlgo(aCube)
