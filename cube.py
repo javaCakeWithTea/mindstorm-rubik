@@ -150,6 +150,7 @@ class Cube:
         return
 
     def centreOnFace(self,face):
+        self.resetLabels()
         ## Changes this side to temporarily be the front.
         if face == "f":
             return
