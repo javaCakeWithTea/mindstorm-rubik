@@ -49,6 +49,38 @@ class TestCubeMethods(unittest.TestCase):
                                                          ["8","5","2"],
                                                          ["9","6","3"]],dtype="U6")))
         
+    def test_rotate_side_f(self):
+        aCube = getDefaultCube()
+        aCube.l[:,2] = np.array(["12","11","10"],dtype="U6")
+        aCube.u[2] = np.array(["1","2","3"],dtype="U6")
+        aCube.r[:,0] = np.array(["4","5","6"],dtype="U6")
+        aCube.d[0] = np.array(["9","8","7"],dtype="U6")
+        aCube.f = np.array([["1","2","3"],["4","5","6"],["7","8","9"]],dtype="U6")
+        aCube.rotateSide("f")
+        self.assertTrue(np.array_equal(aCube.l[:,2],np.array(["9","8","7"],dtype="U6")) and
+                        np.array_equal(aCube.u[2],np.array(["10","11","12"],dtype="U6")) and
+                        np.array_equal(aCube.r[:,0],np.array(["1","2","3"],dtype="U6")) and
+                        np.array_equal(aCube.d[0],np.array(["6","5","4"],dtype="U6")))
+        self.assertTrue(np.array_equal(aCube.f,np.array([["7","4","1"],
+                                                         ["8","5","2"],
+                                                         ["9","6","3"]],dtype="U6")))
+        
+    def test_rotate_side_r(self):
+        aCube = getDefaultCube()
+        aCube.f[:,2] = np.array(["12","11","10"],dtype="U6")
+        aCube.u[:,2] = np.array(["3","2","1"],dtype="U6")
+        aCube.b[:,0] = np.array(["4","5","6"],dtype="U6")
+        aCube.d[:,2] = np.array(["9","8","7"],dtype="U6")
+        aCube.f = np.array([["1","2","3"],["4","5","6"],["7","8","9"]],dtype="U6")
+        aCube.rotateSide("f")
+        self.assertTrue(np.array_equal(aCube.f[:,2],np.array(["9","8","7"],dtype="U6")) and
+                        np.array_equal(aCube.u[:,2],np.array(["12","11","10"],dtype="U6")) and
+                        np.array_equal(aCube.b[:,0],np.array(["1","2","3"],dtype="U6")) and
+                        np.array_equal(aCube.d[:,2],np.array(["6","5","4"],dtype="U6")))
+        self.assertTrue(np.array_equal(aCube.f,np.array([["7","4","1"],
+                                                         ["8","5","2"],
+                                                         ["9","6","3"]],dtype="U6")))
+        
 
     def test_centre_on_face_f(self):
         theCube1 = getDefaultCube()
