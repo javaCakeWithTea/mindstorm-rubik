@@ -106,14 +106,14 @@ class Cube:
             self.l[2][::-1] = returnedValues[4]
         if face == "b":
             up = self.u[0][::-1] # flipped
-            down = self.d[2]
+            down = self.d[2][::-1] # flipped
             right = self.l[:,0]
             left = self.r[:,2]
             rotatedMatrix = self.rotate(self.b,up,down,right,left)
             returnedValues = self.setCube(rotatedMatrix)
             self.b = returnedValues[0]
             self.u[0][::-1] = returnedValues[1]
-            self.d[2] = returnedValues[2]
+            self.d[2][::-1] = returnedValues[2]
             self.l[:,0] = returnedValues[3]
             self.r[:,2] = returnedValues[4]
         return
