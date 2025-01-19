@@ -48,14 +48,22 @@ class WhiteCornersTest(unittest.TestCase):
     def test_popped_corners_can_be_added_back(self):
         aCube = getDefaultCube()
         white_corners.white_corners.removeWhiteCornersFromU(aCube)
-        print([aCube.f[2,2],aCube.r[2,0],aCube.d[0,2]])
-        print([aCube.r[2,2],aCube.b[2,0],aCube.d[2,2]])
-        print([aCube.b[2,2],aCube.l[2,0],aCube.d[2,0]])
-        print([aCube.l[2,2],aCube.f[2,0],aCube.d[0,0]])
+        white_corners.white_corners.putCornersInPlace(aCube)
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
+
+    def test_white_corner_solve_1(self):
+        aCube = getDefaultCube()
+        aCube.rotateSide("r")
+        nerd.Nerd.solve(aCube)
+        self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))
+        white_corners.white_corners.removeWhiteCornersFromU(aCube)
+        white_corners.white_corners.solve(aCube)
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
 
     def test_swap_algo_1(self):
         aCube = getDefaultCube()
         white_corners.white_corners.swapAlgo(aCube)
+        self.assertFalse(white_corners.white_corners.whiteCornersComplete(aCube))
         ## Cube with f corner swapped out with none white.
         aCube.centreOnFace("f")
         white_corners.white_corners.swapAlgo(aCube)
@@ -64,6 +72,7 @@ class WhiteCornersTest(unittest.TestCase):
         white_corners.white_corners.swapAlgo(aCube)
         white_corners.white_corners.swapAlgo(aCube)
         ## Requires 5 swap algorithms.
+        self.assertTrue(nerd.Nerd.whiteCrossComplete(aCube))
         self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
 
     def test_swap_algo_2(self):
@@ -86,6 +95,20 @@ class WhiteCornersTest(unittest.TestCase):
         white_corners.white_corners.swapAlgo(aCube)
         ## Cube with f corner swapped out with none white.
         aCube.centreOnFace("b")
+        white_corners.white_corners.swapAlgo(aCube)
+        white_corners.white_corners.swapAlgo(aCube)
+        white_corners.white_corners.swapAlgo(aCube)
+        white_corners.white_corners.swapAlgo(aCube)
+        white_corners.white_corners.swapAlgo(aCube)
+        ## Requires 5 swap algorithms.
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
+
+    def test_swap_algo_4(self):
+        aCube = getDefaultCube()
+        aCube.centreOnFace("l")
+        white_corners.white_corners.swapAlgo(aCube)
+        ## Cube with f corner swapped out with none white.
+        aCube.centreOnFace("l")
         white_corners.white_corners.swapAlgo(aCube)
         white_corners.white_corners.swapAlgo(aCube)
         white_corners.white_corners.swapAlgo(aCube)

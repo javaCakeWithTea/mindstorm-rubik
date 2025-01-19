@@ -64,19 +64,23 @@ class white_corners:
         cube.centreOnFace("f")
         while sorted([cube.f[2,2],cube.r[2,0],cube.d[0,2]]) != sorted(["blue","red","white"]):
             cube.rotateSide("d")
-            print(1)
+        while cube.u[2,2] != "white":
+            white_corners.swapAlgo(cube)
         cube.centreOnFace("r")
         while sorted([cube.r[2,2],cube.b[2,0],cube.d[2,2]]) != sorted(["blue","orange","white"]): 
             cube.rotateSide("d")
-            print(2)
+        while cube.u[0,2] != "white":
+            white_corners.swapAlgo(cube)
         cube.centreOnFace("b")
         while sorted([cube.b[2,2],cube.l[2,0],cube.d[2,0]]) != ["green","orange","white"]:
             cube.rotateSide("d")
-            print(3)
+        while cube.u[0,0] != "white":
+            white_corners.swapAlgo(cube)
         cube.centreOnFace("l")
         while sorted([cube.l[2,2],cube.f[2,0],cube.d[0,0]]) != ["green","red","white"]:
             cube.rotateSide("d")
-            print(4)
+        while cube.u[2,0] != "white":
+            white_corners.swapAlgo(cube)
         return    
 
     @staticmethod
