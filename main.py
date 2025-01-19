@@ -4,6 +4,11 @@ import nerd
 import white_corners
 
 aCube = c.Cube()
+aCube.rotateSide("l")
+aCube.rotateSide("r")
+aCube.rotateSide("d")
+aCube.rotateSide("b")
+aCube.rotateSide("u")
 white_corners.white_corners.removeWhiteCornersFromU(aCube)
 white_corners.white_corners.putCornersInPlace(aCube)
 print([aCube.f[2,2],aCube.r[2,0],aCube.d[0,2]])

@@ -25,6 +25,7 @@ class white_corners:
         if cube.f[0,2] == "white" or cube.r[0,0] == "white" or cube.u[2,2] == "white":
             while cube.f[2,2] == "white" or cube.r[2,0] == "white" or cube.d[0,2] == "white":
                 cube.rotateSide("d")
+            cube.centreOnFace("f")
             white_corners.swapAlgo(cube)
         if cube.r[0,2] == "white" or cube.b[0,0] == "white" or cube.u[0,2] == "white":
             while cube.r[2,2] == "white" or cube.b[2,0] == "white" or cube.d[2,2] == "white":
