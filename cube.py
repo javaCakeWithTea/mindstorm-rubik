@@ -57,14 +57,14 @@ class Cube:
             self.r[:,0] = returnedValues[3]
             self.l[:,2] = returnedValues[4]
         if face == "u":
-            up = self.b[0]
+            up = self.b[0][::-1] # flipped
             down = self.f[0]
             right = self.r[0][::-1] # flipped
             left = self.l[0]
             rotatedMatrix = self.rotate(self.u,up,down,right,left)
             returnedValues = self.setCube(rotatedMatrix)
             self.u = returnedValues[0]
-            self.b[0] = returnedValues[1]
+            self.b[0][::-1] = returnedValues[1]
             self.f[0] = returnedValues[2]
             self.r[0][::-1] = returnedValues[3]
             self.l[0] = returnedValues[4]

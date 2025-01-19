@@ -71,13 +71,29 @@ class TestCubeMethods(unittest.TestCase):
         aCube.u[:,2] = np.array(["3","2","1"],dtype="U6")
         aCube.b[:,0] = np.array(["4","5","6"],dtype="U6")
         aCube.d[:,2] = np.array(["9","8","7"],dtype="U6")
-        aCube.f = np.array([["1","2","3"],["4","5","6"],["7","8","9"]],dtype="U6")
-        aCube.rotateSide("f")
+        aCube.r = np.array([["1","2","3"],["4","5","6"],["7","8","9"]],dtype="U6")
+        aCube.rotateSide("r")
         self.assertTrue(np.array_equal(aCube.f[:,2],np.array(["9","8","7"],dtype="U6")) and
                         np.array_equal(aCube.u[:,2],np.array(["12","11","10"],dtype="U6")) and
                         np.array_equal(aCube.b[:,0],np.array(["1","2","3"],dtype="U6")) and
                         np.array_equal(aCube.d[:,2],np.array(["6","5","4"],dtype="U6")))
-        self.assertTrue(np.array_equal(aCube.f,np.array([["7","4","1"],
+        self.assertTrue(np.array_equal(aCube.r,np.array([["7","4","1"],
+                                                         ["8","5","2"],
+                                                         ["9","6","3"]],dtype="U6")))
+        
+    def test_rotate_side_u(self):
+        aCube = getDefaultCube()
+        aCube.f[0] = np.array(["9","8","7"],dtype="U6")
+        aCube.l[0] = np.array(["12","11","10"],dtype="U6")
+        aCube.b[0] = np.array(["3","2","1"],dtype="U6")
+        aCube.r[0] = np.array(["6","5","4"],dtype="U6")
+        aCube.u = np.array([["1","2","3"],["4","5","6"],["7","8","9"]],dtype="U6")
+        aCube.rotateSide("u")
+        self.assertTrue(np.array_equal(aCube.f[0],np.array(["6","5","4"],dtype="U6")) and
+                        np.array_equal(aCube.l[0],np.array(["9","8","7"],dtype="U6")) and
+                        np.array_equal(aCube.b[0],np.array(["12","11","10"],dtype="U6")) and
+                        np.array_equal(aCube.r[0],np.array(["3","2","1"],dtype="U6")))
+        self.assertTrue(np.array_equal(aCube.u,np.array([["7","4","1"],
                                                          ["8","5","2"],
                                                          ["9","6","3"]],dtype="U6")))
         
