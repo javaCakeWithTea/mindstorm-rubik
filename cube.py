@@ -43,7 +43,7 @@ class Cube:
         return np.rot90(tensor,-1)
     
     def rotateSide(self,face):
-        ## Fetches all the squares which will be transformed by moving this face.
+        ## Rotates a certain face by 90 degrees clock-wise.
         if face == "f":
             up = self.u[2]
             down = self.d[0]

@@ -31,7 +31,24 @@ class TestCubeMethods(unittest.TestCase):
         theCube7.rotateSide("r")
         self.assertTrue(np.array_equal(theCube7.f,np.array([["red","red","orange"],
                                                 ["red","red","orange"],
-                                                ["red","red","orange"]],dtype="U6")))      
+                                                ["red","red","orange"]],dtype="U6")))   
+
+    def test_rotate_side_d(self):
+        aCube = getDefaultCube()
+        aCube.l[2] = np.array(["1","2","3"],dtype="U6")
+        aCube.f[2] = np.array(["4","5","6"],dtype="U6")
+        aCube.r[2] = np.array(["7","8","9"],dtype="U6")
+        aCube.b[2] = np.array(["10","11","12"],dtype="U6")
+        aCube.d = np.array([["1","2","3"],["4","5","6"],["7","8","9"]],dtype="U6")
+        aCube.rotateSide("d")
+        self.assertTrue(np.array_equal(aCube.l[2],np.array(["10","11","12"],dtype="U6")) and
+                        np.array_equal(aCube.f[2],np.array(["1","2","3"],dtype="U6")) and
+                        np.array_equal(aCube.r[2],np.array(["4","5","6"],dtype="U6")) and
+                        np.array_equal(aCube.b[2],np.array(["7","8","9"],dtype="U6"))) 
+        self.assertTrue(np.array_equal(aCube.d,np.array([["7","4","1"],
+                                                         ["8","5","2"],
+                                                         ["9","6","3"]],dtype="U6")))
+        
 
     def test_centre_on_face_f(self):
         theCube1 = getDefaultCube()
