@@ -10,6 +10,35 @@ class second_layer:
         return cube
     
     @staticmethod
+    def secondLayerComplete(cube:cube.Cube):
+        ##Checks if the second layer stage is complete.
+        uFace = np.array([["white","white","white"],
+            ["white","white","white"],
+            ["white","white","white"]])
+        fFace = np.array([["red","red","red"],
+            ["red","red","red"],
+            ["any","any","any"]])
+        rFace = np.array([["blue","blue","blue"],
+            ["blue","blue","blue"],
+            ["any","any","any"]])
+        lFace = np.array([["green","green","green"],
+            ["green","green","green"],
+            ["any","any","any"]])
+        bFace = np.array([["orange","orange","orange"],
+            ["orange","orange","orange"],
+            ["any","any","any"]])
+        dFace = np.array([["any","any","any"],
+            ["any","yellow","any"],
+            ["any","any","any"]])
+        
+        completeSecondLayer = cube.Cube(fFace,uFace,lFace,rFace,bFace,dFace)
+        
+        if cube == completeSecondLayer:
+            return True
+        else:
+            return False
+    
+    @staticmethod
     def leftAlgorithm(cube:cube.Cube):
 
         ## |0|0|0|
