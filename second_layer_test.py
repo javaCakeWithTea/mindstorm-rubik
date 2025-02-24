@@ -16,14 +16,26 @@ def getDefaultCube():
 
 class SecondLayerTest(unittest.TestCase): 
 
-    def testRedFaceExample(self):
+    def testRedFaceLeftAlgo(self):
         defaultCube = getDefaultCube()
         defaultCube.f[1,0] = "blue"
         defaultCube.f[2,1] = "red"
         defaultCube.l[1,2] = "orange"
-        defaultCube.d[1,2] = "green"
+        defaultCube.d[0,1] = "green"
         defaultCube.centreOnFace("f")
         second_layer.second_layer.leftAlgorithm(defaultCube)
-        self.assertEqual(defaultCube.b[1,0],"orange")
-        self.assertEqual(defaultCube.r[1,2],"blue")
+        self.assertEqual(defaultCube.f[1,0],"red")
+        self.assertEqual(defaultCube.l[1,2],"green")
+
+    def testRedFaceRightAlgo(self):
+        defaultCube = getDefaultCube()
+        defaultCube.f[1,2] = "green"
+        defaultCube.f[2,1] = "red"
+        defaultCube.r[1,0] = "orange"
+        defaultCube.d[0,1] = "blue"
+        defaultCube.centreOnFace("f")
+        second_layer.second_layer.rightAlgorithm(defaultCube)
+        self.assertEqual(defaultCube.f[1,2],"red")
+        self.assertEqual(defaultCube.r[1,0],"blue")
+
 
