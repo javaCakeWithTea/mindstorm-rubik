@@ -10,30 +10,30 @@ class second_layer:
         return cube
     
     @staticmethod
-    def secondLayerComplete(cube:cube.Cube):
+    def secondLayerComplete(aCube:cube.Cube):
         ##Checks if the second layer stage is complete.
-        uFace = np.array([["white","white","white"],
+        completeSecondLayer = cube.Cube()
+        completeSecondLayer.u = np.array([["white","white","white"],
             ["white","white","white"],
             ["white","white","white"]])
-        fFace = np.array([["red","red","red"],
+        completeSecondLayer.f = np.array([["red","red","red"],
             ["red","red","red"],
             ["any","any","any"]])
-        rFace = np.array([["blue","blue","blue"],
+        completeSecondLayer.r = np.array([["blue","blue","blue"],
             ["blue","blue","blue"],
             ["any","any","any"]])
-        lFace = np.array([["green","green","green"],
+        completeSecondLayer.l = np.array([["green","green","green"],
             ["green","green","green"],
             ["any","any","any"]])
-        bFace = np.array([["orange","orange","orange"],
+        completeSecondLayer.b = np.array([["orange","orange","orange"],
             ["orange","orange","orange"],
             ["any","any","any"]])
-        dFace = np.array([["any","any","any"],
+        completeSecondLayer.d = np.array([["any","any","any"],
             ["any","yellow","any"],
             ["any","any","any"]])
         
-        completeSecondLayer = cube.Cube(fFace,uFace,lFace,rFace,bFace,dFace)
         
-        if cube == completeSecondLayer:
+        if aCube == completeSecondLayer:
             return True
         else:
             return False
@@ -94,15 +94,15 @@ class second_layer:
     
     @staticmethod
     def matchFace(cube:cube.Cube):
-        desiredColourF = cube.__dict__(cube.labelF)[1,1]
-        desiredColourL = cube.__dict__(cube.labelL)[1,2]
-        desiredColourR = cube.__dict__(cube.labelR)[1,0]
-        leftSideF = cube.__dict__(cube.labelF)[1,0]
-        leftSideL = cube.__dict__(cube.labelL)[1,2]
-        rightSideF = cube.__dict__(cube.labelF)[1,2]
-        rightSideR = cube.__dict__(cube.labelR)[1,0]
+        desiredColourF = cube.__dict__[cube.labelF][1,1]
+        desiredColourL = cube.__dict__[cube.labelL][1,2]
+        desiredColourR = cube.__dict__[cube.labelR][1,0]
+        leftSideF = cube.__dict__[cube.labelF][1,0]
+        leftSideL = cube.__dict__[cube.labelL][1,2]
+        rightSideF = cube.__dict__[cube.labelF][1,2]
+        rightSideR = cube.__dict__[cube.labelR][1,0]
 
-        bottomSideF = cube.__dict__(cube.labelF)[2,1]
+        bottomSideF = cube.__dict__[cube.labelF][2,1]
         if cube.labelF == "f":
             bottomSideD = cube.d[0,1]
         elif cube.labelF == "r":

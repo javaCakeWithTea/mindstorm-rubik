@@ -60,4 +60,41 @@ class SecondLayerTest(unittest.TestCase):
         self.assertEqual(defaultCube.l[1,2],"green")
         self.assertEqual(defaultCube.f[1,0],"red")
 
+    def testSolveSecondLayer1(self):
+        defaultCube = getDefaultCube()
+        defaultCube.l[1,2],"blue"
+        defaultCube.f[1,0],"yellow"
+        defaultCube.l[2,1] = "green"
+        defaultCube.d[1,0] = "red"
+        defaultCube.centreOnFace("l")
+        second_layer.second_layer.matchFace(defaultCube)
+        self.assertEqual(defaultCube.l[1,2],"green")
+        self.assertEqual(defaultCube.f[1,0],"red")
+        self.assertTrue(second_layer.second_layer.secondLayerComplete(defaultCube))
+        
+
+    def testSolveSecondLayer2(self):
+        defaultCube = getDefaultCube()
+        defaultCube.r[1,2],"red"
+        defaultCube.b[1,0],"yellow"
+        defaultCube.r[2,1] = "blue"
+        defaultCube.d[1,2] = "orange"
+        defaultCube.centreOnFace("l")
+        second_layer.second_layer.matchFace(defaultCube)
+        self.assertEqual(defaultCube.r[1,2],"blue")
+        self.assertEqual(defaultCube.b[1,0],"orange")
+        self.assertTrue(second_layer.second_layer.secondLayerComplete(defaultCube))
+
+    def testSolveSecondLayer3(self):
+        defaultCube = getDefaultCube()
+        defaultCube.l[1,2],"blue"
+        defaultCube.f[1,0],"yellow"
+        defaultCube.l[2,1] = "red"
+        defaultCube.d[1,0] = "green"
+        defaultCube.centreOnFace("l")
+        second_layer.second_layer.matchFace(defaultCube)
+        self.assertEqual(defaultCube.l[1,2],"green")
+        self.assertEqual(defaultCube.f[1,0],"red")
+        self.assertTrue(second_layer.second_layer.secondLayerComplete(defaultCube))
+
 
