@@ -39,7 +39,7 @@ class second_layer:
             return False
     
     @staticmethod
-    def leftAlgorithm(cube:cube.Cube):
+    def rightAlgorithm(cube:cube.Cube):
 
         ## |0|0|0|
         ## |X|0|_|
@@ -66,7 +66,7 @@ class second_layer:
         return
     
     @staticmethod
-    def rightAlgorithm(cube:cube.Cube):
+    def leftAlgorithm(cube:cube.Cube):
 
         ## |0|0|0|
         ## |_|0|X|
@@ -119,12 +119,12 @@ class second_layer:
             ## First chack if the pieces are in place but in wrong orientation.
             if leftSideF == desiredColourL and leftSideL == desiredColourF:
                 ## Left algo, incorrect position. Already in place.
-                second_layer.leftAlgorithm(cube)
-                second_layer.leftAlgorithm(cube)
+                second_layer.rightAlgorithm(cube)
+                second_layer.rightAlgorithm(cube)
             if rightSideF == desiredColourR and rightSideR == desiredColourF:
                 ## Right algo, incorrect position. Already in place.
-                second_layer.rightAlgorithm(cube)
-                second_layer.rightAlgorithm(cube)
+                second_layer.leftAlgorithm(cube)
+                second_layer.leftAlgorithm(cube)
 
             for i in range(4):
                 ## Check each of the bottom edges for a match.
@@ -132,20 +132,20 @@ class second_layer:
                     continue
                 if bottomSideF == desiredColourF and bottomSideD == desiredColourL:
                     ## Left algo, correct position.
-                    second_layer.leftAlgorithm(cube)
+                    second_layer.rightAlgorithm(cube)
                 if bottomSideF == desiredColourL and bottomSideD == desiredColourF:
                     ## Left algo, incorrect position.
-                    second_layer.leftAlgorithm(cube)
-                    second_layer.leftAlgorithm(cube)
-                    second_layer.leftAlgorithm(cube)
+                    second_layer.rightAlgorithm(cube)
+                    second_layer.rightAlgorithm(cube)
+                    second_layer.rightAlgorithm(cube)
                 if bottomSideF == desiredColourF and bottomSideD == desiredColourR:
                     ## Right algo, correct position.
-                    second_layer.rightAlgorithm(cube)
+                    second_layer.leftAlgorithm(cube)
                 if bottomSideF == desiredColourR and bottomSideD == desiredColourF:
                     ## Right algo, incorrect position.
-                    second_layer.rightAlgorithm(cube)
-                    second_layer.rightAlgorithm(cube)
-                    second_layer.rightAlgorithm(cube)
+                    second_layer.leftAlgorithm(cube)
+                    second_layer.leftAlgorithm(cube)
+                    second_layer.leftAlgorithm(cube)
 
                 ## Rotate to the next one.
                 cube.rotateSide("d")
