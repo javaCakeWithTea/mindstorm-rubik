@@ -2,6 +2,8 @@ import unittest
 import second_layer
 import cube
 import numpy as np
+import nerd
+import white_corners
 
 def getDefaultCube():
     ## Constructor doesn't necessarily produce a new instance?
@@ -86,6 +88,7 @@ class SecondLayerTest(unittest.TestCase):
         self.assertTrue(second_layer.second_layer.secondLayerComplete(defaultCube))
 
     def testSolveSecondLayer3(self):
+        ## Same as first one but has the other way so it need to repeat the algo.
         defaultCube = getDefaultCube()
         defaultCube.l[1,2],"blue"
         defaultCube.f[1,0],"yellow"
@@ -96,5 +99,18 @@ class SecondLayerTest(unittest.TestCase):
         self.assertEqual(defaultCube.l[1,2],"green")
         self.assertEqual(defaultCube.f[1,0],"red")
         self.assertTrue(second_layer.second_layer.secondLayerComplete(defaultCube))
+
+    def testSolveComplex(self):
+        defaultCube = getDefaultCube()
+        defaultCube.rotateSide("l")
+        defaultCube.rotateSide("u")
+        defaultCube.rotateSide("r")
+        defaultCube.rotateSide("l")
+        nerd.Nerd.solve(defaultCube)
+        white_corners.white_corners.solve(defaultCube)
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(defaultCube))
+        second_layer.second_layer.solve(defaultCube)
+        self.assertTrue(second_layer.second_layer.secondLayerComplete(defaultCube))
+        
 
 
