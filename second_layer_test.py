@@ -109,7 +109,7 @@ class SecondLayerTest(unittest.TestCase):
         nerd.Nerd.solve(defaultCube)
         white_corners.white_corners.solve(defaultCube)
         self.assertTrue(white_corners.white_corners.whiteCornersComplete(defaultCube))
-        second_layer.second_layer.solve(defaultCube)
+        second_layer.second_layer.matchFace(defaultCube)
         self.assertTrue(second_layer.second_layer.secondLayerComplete(defaultCube))
         
 

@@ -31,11 +31,9 @@ class Cube:
         topRow = np.hstack((["empty"],up,["empty"]))
         bottomRow = np.hstack((["empty"],down,["empty"]))
         rotationMatrix = np.vstack((topRow,rotationMatrix,bottomRow))
-        print("Matrix pre-rotation:")
-        print(rotationMatrix)
+
         rotatedMatrix = self.rotateFiveByFive(rotationMatrix)
-        print("Matrix post rotation:")
-        print(rotatedMatrix)
+
         return rotatedMatrix
 
     def rotateFiveByFive(self,tensor):
@@ -146,7 +144,6 @@ class Cube:
         self.f[1:,:] = bottomF
         self.b[1:,:] = bottomB
         self.l[1:,:] = bottomL
-        print("Roated bottom 2 rows once.")
         return
 
     def centreOnFace(self,face):
