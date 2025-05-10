@@ -109,7 +109,7 @@ class SecondLayerTest(unittest.TestCase):
         nerd.Nerd.solve(defaultCube)
         white_corners.white_corners.solve(defaultCube)
         self.assertTrue(white_corners.white_corners.whiteCornersComplete(defaultCube))
-        second_layer.second_layer.popOutEdgesThatAreWrong(defaultCube)
+        second_layer.second_layer.solve(defaultCube)
         print(defaultCube.f[1,0],defaultCube.f[1,2],defaultCube.l[1,0],defaultCube.l[1,2],defaultCube.r[1,0],defaultCube.r[1,2],defaultCube.b[1,0],defaultCube.b[1,2])
         self.assertTrue(second_layer.second_layer.secondLayerComplete(defaultCube))
         

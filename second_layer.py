@@ -7,7 +7,8 @@ class second_layer:
 
     @staticmethod
     def solve(cube:cube.Cube):
-        
+        second_layer.popOutEdgesThatAreWrong(cube)
+        second_layer.addThemIn(cube)
         return cube
     
     @staticmethod
@@ -126,6 +127,53 @@ class second_layer:
                     else:
                         cube.rotateSide("d")
                         LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
+
+    @staticmethod
+    def addThemIn(cube:cube.Cube):
+        ## Checks all the faces and adds the corners in on this face if there is a match.
+
+
+        while not second_layer.secondLayerComplete(cube):
+            for face in ["f","r","b","l"]:
+                cube.centreOnFace(face)
+                print("Checking face:" + face)
+                print(cube.__dict__[cube.labelF])
+                desiredColourF = cube.__dict__[cube.labelF][1,1]
+                desiredColourL = cube.__dict__[cube.labelL][1,1]
+                desiredColourR = cube.__dict__[cube.labelR][1,1]
+                desiredColourB = cube.__dict__[cube.labelB][1,1]
+                desiredColourD = cube.__dict__[cube.labelD][1,1]
+                desMiddleColours = ["red","blue","orange","green"]
+
+                LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
+            
+                if bottomSideF == desiredColourF:
+                    
+                    if (bottomSideD == desiredColourL):
+                        ## Use right algorithm to insert the edge.
+                        second_layer.rightAlgorithm(cube)
+                    if (bottomSideD == desiredColourR):
+                        ## Use left algorithm to insert the edge.
+                        second_layer.leftAlgorithm(cube)
+
+                if bottomSideD == desiredColourF:
+                    if (bottomSideF == desiredColourL):
+                        ## Use right algorithm to orientate then insert the edge.
+                        second_layer.rightAlgorithm(cube)
+                        second_layer.rightAlgorithm(cube)
+                        cube.rotateSide("d")
+                        cube.rotateSide("d")
+                        second_layer.rightAlgorithm(cube)
+                    if (bottomSideF == desiredColourR):
+                        ## Use left algorithm to orientate then insert the edge.
+                        second_layer.leftAlgorithm(cube)
+                        second_layer.leftAlgorithm(cube)
+                        cube.rotateSide("d")
+                        cube.rotateSide("d")
+                        second_layer.leftAlgorithm(cube)
+
+            #cube.rotateSide("d")
+                    
 
 
 
