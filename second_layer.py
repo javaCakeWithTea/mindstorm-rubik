@@ -104,15 +104,9 @@ class second_layer:
             cube.centreOnFace(face)
             print("Checking face:" + face)
             print(cube.__dict__[cube.labelF])
-            desiredColourF = cube.__dict__[cube.labelF][1,1]
-            desiredColourL = cube.__dict__[cube.labelL][1,1]
-            desiredColourR = cube.__dict__[cube.labelR][1,1]
-            desiredColourB = cube.__dict__[cube.labelB][1,1]
-            desMiddleColours = ["red","blue","orange","green"]
-
             LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
         
-            if (LSideOfF in desMiddleColours) and (FSideOfL in desMiddleColours):
+            if "yellow" not in [LSideOfF,FSideOfL]:
                 print("Left side is a correct edge, get it out!")
                 print("Edge is:" + LSideOfF + " " + FSideOfL)
                 ## Edge should be popped out.
@@ -127,7 +121,7 @@ class second_layer:
                         cube.rotateSide("d")
                         print("Rotating d!")
                         LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
-            if (RSideOfF in desMiddleColours) and (FSideOfR in desMiddleColours):
+            if "yellow" not in [RSideOfF,FSideOfR]:
                 print("Right side is a correct edge, get it out!")
                 print("Edge is:" + RSideOfF + " " + FSideOfR)
                 ## Edge should be popped out.
@@ -155,10 +149,6 @@ class second_layer:
                 desiredColourF = cube.__dict__[cube.labelF][1,1]
                 desiredColourL = cube.__dict__[cube.labelL][1,1]
                 desiredColourR = cube.__dict__[cube.labelR][1,1]
-                desiredColourB = cube.__dict__[cube.labelB][1,1]
-                desiredColourD = cube.__dict__[cube.labelD][1,1]
-                desMiddleColours = ["red","blue","orange","green"]
-
                 LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
 
             
