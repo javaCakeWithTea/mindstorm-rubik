@@ -7,7 +7,7 @@ class second_layer:
 
     @staticmethod
     def solve(cube:cube.Cube):
-        second_layer.popOutEdgesThatAreWrong(cube)
+        second_layer.popOutEdgesThatAreCorrect(cube)
         second_layer.addThemIn(cube)
         return cube
     
@@ -95,9 +95,10 @@ class second_layer:
         return
     
     @staticmethod
-    def popOutEdgesThatAreWrong(cube:cube.Cube):
-        ## Checks all the edges and pops them out if they are the wrong colours.
-        ## Should result in all the colours being right in the middle.
+    def popOutEdgesThatAreCorrect(cube:cube.Cube):
+        ## Checks all the edges and pops them out if they are the right colours.
+        ## Should result in all the colours being wrong in the middle.
+        ## Now thye shold be ready to be put back in.
         
         for face in ["f","r","b","l"]:
             cube.centreOnFace(face)
@@ -111,27 +112,40 @@ class second_layer:
 
             LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
         
-            if LSideOfF not in desMiddleColours or FSideOfL not in desMiddleColours:
+            if (LSideOfF in desMiddleColours) and (FSideOfL in desMiddleColours):
+                print("Left side is a correct edge, get it out!")
+                print("Edge is:" + LSideOfF + " " + FSideOfL)
                 ## Edge should be popped out.
                 for i in range(4):
-                    if bottomSideD in desMiddleColours and bottomSideF in desMiddleColours:
+                    if "yellow" in [bottomSideD,bottomSideF]:
+                        print("Right algo.")
                         second_layer.rightAlgorithm(cube)
+                        LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
+                        print("Edge now:" + LSideOfF + " " + FSideOfL)
+                        break
                     else:
                         cube.rotateSide("d")
+                        print("Rotating d!")
                         LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
-            if RSideOfF not in desMiddleColours or FSideOfR not in desMiddleColours:
+            if (RSideOfF in desMiddleColours) and (FSideOfR in desMiddleColours):
+                print("Right side is a correct edge, get it out!")
+                print("Edge is:" + RSideOfF + " " + FSideOfR)
                 ## Edge should be popped out.
                 for i in range(4):
-                    if bottomSideD in desMiddleColours and bottomSideF in desMiddleColours:
+                    if "yellow" in [bottomSideD,bottomSideF]:
+                        print("Left algo.")
                         second_layer.leftAlgorithm(cube)
+                        LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
+                        print("Edge is:" + RSideOfF + " " + FSideOfR)
+                        break
                     else:
                         cube.rotateSide("d")
+                        print("Rotating d!")
                         LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
 
     @staticmethod
     def addThemIn(cube:cube.Cube):
         ## Checks all the faces and adds the corners in on this face if there is a match.
-
 
         while not second_layer.secondLayerComplete(cube):
             for face in ["f","r","b","l"]:
@@ -146,6 +160,7 @@ class second_layer:
                 desMiddleColours = ["red","blue","orange","green"]
 
                 LSideOfF,FSideOfL,RSideOfF,FSideOfR,bottomSideF,bottomSideD = second_layer.setValues(cube)
+
             
                 if bottomSideF == desiredColourF:
                     
@@ -172,7 +187,7 @@ class second_layer:
                         cube.rotateSide("d")
                         second_layer.leftAlgorithm(cube)
 
-            #cube.rotateSide("d")
+            cube.rotateSide("d")
                     
 
 
