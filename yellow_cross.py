@@ -3,11 +3,6 @@ import cube
 
 class yellow_cross:
     ## This nerd has learnt to go from a white corners solution to complete second layer.
-
-
-    @staticmethod
-    def solve(cube:cube.Cube):
-        return cube
     
     @staticmethod
     def yellowCrossComplete(aCube:cube.Cube):
