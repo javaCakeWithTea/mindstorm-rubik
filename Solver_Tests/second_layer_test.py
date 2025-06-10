@@ -1,9 +1,9 @@
 import unittest
-import second_layer
+import Solvers.second_layer as second_layer
 import cube
 import numpy as np
-import nerd
-import white_corners
+import Solvers.nerd as nerd
+import Solvers.white_corners as white_corners
 
 def getDefaultCube():
     ## Constructor doesn't necessarily produce a new instance?

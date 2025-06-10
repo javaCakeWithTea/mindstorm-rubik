@@ -1,8 +1,8 @@
 import unittest
-import white_corners
+import Solvers.white_corners as white_corners
 import cube
 import numpy as np
-import nerd
+import Solvers.nerd as nerd
 
 def getDefaultCube():
     ## Constructor doesn't necessarily produce a new instance?

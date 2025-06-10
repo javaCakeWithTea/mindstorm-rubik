@@ -1,6 +1,5 @@
 import cube as c
 import numpy as np
-import nerd
 import white_corners
 
 aCube = c.Cube()

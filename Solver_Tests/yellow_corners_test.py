@@ -1,10 +1,12 @@
 import unittest
 import cube
 import numpy as np
-import yellow_cross
-import second_layer
-import white_corners
-import nerd
+import Solvers.yellow_cross as yellow_cross
+import Solvers.second_layer as second_layer
+import Solvers.white_corners as white_corners
+import Solvers.nerd as nerd
+import Solvers.yellow_edges as yellow_edges
+import Solvers.yellow_corners as yellow_corners
 
 def getDefaultCube():
     ## Constructor doesn't necessarily produce a new instance?
@@ -17,115 +19,106 @@ def getDefaultCube():
     defaultCube.d=np.full((3,3),"yellow",dtype="U6")
     return defaultCube
 
-class YellowCrossTest(unittest.TestCase): 
+class YellowCornersTest(unittest.TestCase): 
 
 
-    def test_yellow_cross_complete_assertion_1(self):
-        ## Solved cube should pass. line 2
+    def test_yellow_corners_complete_1(self):
+        ## LF in place.
         aCube = getDefaultCube()
         aCube.rotateSide("r")
         aCube.rotateSide("d")
         aCube.rotateSide("l")
-        aCube.rotateSide("b")
+        aCube.rotateSide("l")
         nerd.Nerd.solve(aCube)
         white_corners.white_corners.solve(aCube)
         self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
         second_layer.second_layer.solve(aCube)
         yellow_cross.yellow_cross.solve(aCube)
         self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
+        yellow_edges.yellow_edges.solve(aCube)
+        self.assertTrue(yellow_edges.yellow_edges.yellowEdgesComplete(aCube))
+        yellow_corners.yellow_corners.solve(aCube)
+        self.assertTrue(yellow_corners.yellow_corners.yellowCornersComplete(aCube))
 
-    def test_yellow_cross_complete_assertion_2(self):
-        ## Solved cube should pass. l3
+    def test_yellow_corners_complete_2(self):
+        ## BL in place.
         aCube = getDefaultCube()
+        aCube.rotateSide("r")
+        aCube.rotateSide("r")
+        aCube.rotateSide("l")
+        aCube.rotateSide("l")
+        nerd.Nerd.solve(aCube)
+        white_corners.white_corners.solve(aCube)
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
+        second_layer.second_layer.solve(aCube)
+        yellow_cross.yellow_cross.solve(aCube)
+        self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
+        yellow_edges.yellow_edges.solve(aCube)
+        self.assertTrue(yellow_edges.yellow_edges.yellowEdgesComplete(aCube))
+        yellow_corners.yellow_corners.solve(aCube)
+        print(aCube.f)
+        self.assertTrue(yellow_corners.yellow_corners.yellowCornersComplete(aCube))
+
+    def test_yellow_corners_complete_3(self):
+        ## No corners in place.
+        aCube = getDefaultCube()
+        aCube.rotateSide("r")
         aCube.rotateSide("d")
+        aCube.rotateSide("l")
+        aCube.rotateSide("l")
+        nerd.Nerd.solve(aCube)
+        white_corners.white_corners.solve(aCube)
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
+        second_layer.second_layer.solve(aCube)
+        yellow_cross.yellow_cross.solve(aCube)
+        self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
+        yellow_edges.yellow_edges.solve(aCube)
+        self.assertTrue(yellow_edges.yellow_edges.yellowEdgesComplete(aCube))
+        yellow_corners.yellow_corners.solve(aCube)
+        print(aCube.f)
+        self.assertTrue(yellow_corners.yellow_corners.yellowCornersComplete(aCube))
+
+    def test_yellow_corners_complete_4(self):
+        ## All corners in place.
+        aCube = getDefaultCube()
+        aCube.rotateSide("r")
         aCube.rotateSide("d")
-        aCube.rotateSide("f")
-        aCube.rotateSide("u")
-        nerd.Nerd.solve(aCube)
-        white_corners.white_corners.solve(aCube)
-        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
-        second_layer.second_layer.solve(aCube)
-        yellow_cross.yellow_cross.solve(aCube)
-        self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
-
-    def test_yellow_cross_complete_assertion_3(self):
-        ## Solved cube should pass. line 1
-        aCube = getDefaultCube()
-        aCube.rotateSide("d")
-        aCube.rotateSide("r")
-        aCube.rotateSide("r")
-        aCube.rotateSide("f")
         aCube.rotateSide("l")
-        nerd.Nerd.solve(aCube)
-        white_corners.white_corners.solve(aCube)
-        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
-        second_layer.second_layer.solve(aCube)
-        self.assertTrue(second_layer.second_layer.secondLayerComplete(aCube))
-        yellow_cross.yellow_cross.solve(aCube)
-        self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
-
-    def test_yellow_cross_complete_assertion_4(self):
-        ## Solved cube should pass. l1
-        aCube = getDefaultCube()
-        aCube.rotateSide("l")
-        aCube.rotateSide("b")
-        aCube.rotateSide("r")
-        aCube.rotateSide("r")
-        aCube.rotateSide("l")
-        nerd.Nerd.solve(aCube)
-        white_corners.white_corners.solve(aCube)
-        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
-        second_layer.second_layer.solve(aCube)
-        self.assertTrue(second_layer.second_layer.secondLayerComplete(aCube))
-        yellow_cross.yellow_cross.solve(aCube)
-        self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
-
-    def test_yellow_cross_complete_assertion_5(self):
-        ## Solved cube should pass. dot
-        aCube = getDefaultCube()
-        aCube.rotateSide("l")
-        aCube.rotateSide("b")
-        aCube.rotateSide("r")
-        aCube.rotateSide("b")
-        aCube.rotateSide("b")
-        nerd.Nerd.solve(aCube)
-        white_corners.white_corners.solve(aCube)
-        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
-        second_layer.second_layer.solve(aCube)
-        self.assertTrue(second_layer.second_layer.secondLayerComplete(aCube))
-        yellow_cross.yellow_cross.solve(aCube)
-        self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
-    
-    def test_yellow_cross_complete_assertion_6(self):
-        ## Solved cube should pass. l4
-        aCube = getDefaultCube()
-        aCube.rotateSide("l")
-        aCube.rotateSide("b")
-        aCube.rotateSide("l")
-        aCube.rotateSide("b")
-        aCube.rotateSide("b")
-        nerd.Nerd.solve(aCube)
-        white_corners.white_corners.solve(aCube)
-        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
-        second_layer.second_layer.solve(aCube)
-        self.assertTrue(second_layer.second_layer.secondLayerComplete(aCube))
-        yellow_cross.yellow_cross.solve(aCube)
-        self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
-
-    def test_yellow_cross_complete_assertion_7(self):
-        ## Solved cube should pass. l2
-        aCube = getDefaultCube()
         aCube.rotateSide("u")
         aCube.rotateSide("u")
-        aCube.rotateSide("l")
-        aCube.rotateSide("l")
-        aCube.rotateSide("f")
-        aCube.rotateSide("d")
-        aCube.rotateSide("r")
+        aCube.rotateSide("b")
         nerd.Nerd.solve(aCube)
         white_corners.white_corners.solve(aCube)
         self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
         second_layer.second_layer.solve(aCube)
-        self.assertTrue(second_layer.second_layer.secondLayerComplete(aCube))
         yellow_cross.yellow_cross.solve(aCube)
         self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
+        yellow_edges.yellow_edges.solve(aCube)
+        self.assertTrue(yellow_edges.yellow_edges.yellowEdgesComplete(aCube))
+        yellow_corners.yellow_corners.solve(aCube)
+        print(aCube.f)
+        self.assertTrue(yellow_corners.yellow_corners.yellowCornersComplete(aCube))
+
+    def test_yellow_corners_complete_5(self):
+        ## RB is in place.
+        aCube = getDefaultCube()
+        aCube.rotateSide("r")
+        aCube.rotateSide("d")
+        aCube.rotateSide("l")
+        aCube.rotateSide("u")
+        aCube.rotateSide("u")
+        aCube.rotateSide("b")
+        aCube.rotateSide("b")
+        aCube.rotateSide("r")
+        
+        nerd.Nerd.solve(aCube)
+        white_corners.white_corners.solve(aCube)
+        self.assertTrue(white_corners.white_corners.whiteCornersComplete(aCube))
+        second_layer.second_layer.solve(aCube)
+        yellow_cross.yellow_cross.solve(aCube)
+        self.assertTrue(yellow_cross.yellow_cross.yellowCrossComplete(aCube))
+        yellow_edges.yellow_edges.solve(aCube)
+        self.assertTrue(yellow_edges.yellow_edges.yellowEdgesComplete(aCube))
+        yellow_corners.yellow_corners.solve(aCube)
+        print(aCube.f)
+        self.assertTrue(yellow_corners.yellow_corners.yellowCornersComplete(aCube))

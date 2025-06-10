@@ -1,13 +1,13 @@
 import unittest
 import cube
 import numpy as np
-import yellow_cross
-import second_layer
-import white_corners
-import nerd
-import yellow_edges
-import yellow_corners
-import orientate_corners
+import Solvers.yellow_cross as yellow_cross
+import Solvers.second_layer as second_layer
+import Solvers.white_corners as white_corners
+import Solvers.nerd as nerd
+import Solvers.yellow_edges as yellow_edges
+import Solvers.yellow_corners as yellow_corners
+import Solvers.orientate_corners as orientate_corners
 
 def getDefaultCube():
     ## Constructor doesn't necessarily produce a new instance?
